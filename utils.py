@@ -35,7 +35,7 @@ class Media(Document):
     file_size = fields.IntField(required=True)
     file_type = fields.StrField(allow_none=True)
     mime_type = fields.StrField(allow_none=True)
-    file_descp=fields.StrField(required=True)
+    file_descp = fields.StrField(required=True)
     caption = fields.StrField(allow_none=True)
 
     class Meta:
@@ -83,7 +83,7 @@ async def save_file(media):
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
-            file_descp=last_msg = await bot.ask(text = "send description of"+media.file_name, chat_id = media.from_user.id)
+            file_descp = await bot.ask(text = "send description of" + media.file_name, chat_id = media.from_user.id)
             caption=media.caption.html if media.caption else None,
         )
     except ValidationError:
