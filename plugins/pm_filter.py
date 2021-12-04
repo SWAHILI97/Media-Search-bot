@@ -136,7 +136,7 @@ async def group(client, message):
 def get_reply_makup(query,totol):
     buttons = [
         [
-            InlineKeyboardButton('Search results:'+ totol, switch_inline_query_current_chat=query),
+            InlineKeyboardButton('Search results:'+ str(totol), switch_inline_query_current_chat=query),
         ]
         ]
     return InlineKeyboardMarkup(buttons)
