@@ -35,7 +35,6 @@ class Media(Document):
     file_size = fields.IntField(required=True)
     file_type = fields.StrField(allow_none=True)
     mime_type = fields.StrField(allow_none=True)
-    file_descp = fields.StrField(allow_none=True)
     caption = fields.StrField(allow_none=True)
 
     class Meta:
@@ -83,7 +82,6 @@ async def save_file(media):
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
-            file_descp=media.file_descp,
             caption=media.caption.html if media.caption else None,
         )
     except ValidationError:
