@@ -124,7 +124,7 @@ async def group(client, message):
         files = await get_filter_results(query=search)
         if files:
             for file in files:
-                title, descp = query.query.split('-_-_-_', maxsplit=1)
+                title, descp =file.file_name.split('-_-_-_', maxsplit=1)
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {title}"
                 btn.append(
