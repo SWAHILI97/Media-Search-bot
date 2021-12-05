@@ -215,5 +215,7 @@ async def add_poster(bot, message):
 
     word = await bot.ask(text = " send description", chat_id = message.from_user.id)
     media.file_type = word.text
+    smsi = await bot.ask(text = " send ", chat_id = message.from_user.id)
+    media.file_descp=smsi.text
     media.caption = message.caption
     await save_file(media)
