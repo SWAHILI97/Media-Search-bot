@@ -53,8 +53,9 @@ async def filter(client, message):
         files = await get_filter_results(query=search)
         if files:
             for file in files:
+                title, descp = query.query.split('-_-_-_', maxsplit=1)
                 file_id = file.file_id
-                filename = f"[{get_size(file.file_size)}] {file.file_name}"
+                filename = f"[{get_size(file.file_size)}] {title}"
                 btn.append(
                      [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
                     )
@@ -123,12 +124,13 @@ async def group(client, message):
         files = await get_filter_results(query=search)
         if files:
             for file in files:
+                title, descp = query.query.split('-_-_-_', maxsplit=1)
                 file_id = file.file_id
-                filename = f"[{get_size(file.file_size)}] {file.file_name}"
+                filename = f"[{get_size(file.file_size)}] {title}"
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")]
                 )
-            await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=get_reply_makup(search,len(btn)))
+            await message.reply_text(f"<b>Majibu ({len(btn)}ndiyo yaliopatikana kutoka kwenye databaese yetu/n bonyeza kitufe cha search here kupata matokeo {search} ya ulichotafta ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=get_reply_makup(search,len(btn)))
         else:
             return
         if not btn:
