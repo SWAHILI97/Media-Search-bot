@@ -37,7 +37,7 @@ async def answer(bot, query):
                                                   offset=offset)
 
     for file in files:
-        title, descp = query.query.split('-_-_-_', maxsplit=1)
+        title, descp = file.file_name.split('-_-_-_', maxsplit=1)
         size=get_size(file.file_size)
         f_caption=file.caption
         if CUSTOM_FILE_CAPTION:
