@@ -40,7 +40,6 @@ async def answer(bot, query):
         title=file.file_name
         size=get_size(file.file_size)
         f_caption=file.caption
-        f_caption, descp = query.query.split('#@', maxsplit=1)
         if CUSTOM_FILE_CAPTION:
             try:
                 f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
@@ -54,7 +53,7 @@ async def answer(bot, query):
                 title=file.file_name,
                 file_id=file.file_id,
                 caption=f_caption,
-                description=f'{descp}',
+                description=f'Size: {get_size(file.file_size)}\nType: {file.file_type}',
                 reply_markup=reply_markup))
 
     if results:
@@ -96,7 +95,6 @@ def get_reply_markup(query):
         ]
         ]
     return InlineKeyboardMarkup(buttons)
-
 
 
 
