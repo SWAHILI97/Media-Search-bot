@@ -35,7 +35,6 @@ class Media(Document):
     file_size = fields.IntField(required=True)
     file_type = fields.StrField(allow_none=True)
     mime_type = fields.StrField(allow_none=True)
-    description = fields.StrField(allow_none=True)
     caption = fields.StrField(allow_none=True)
 
     class Meta:
@@ -69,7 +68,7 @@ async def save_poster(imdb_id, title, year, url):
         else:
             logger.info("Poster is saved in database")
 
-async def save_file(media,description):
+async def save_file(media):
     """Save file in database"""
 
     # TODO: Find better way to get same file_id for same media to avoid duplicates
@@ -83,7 +82,6 @@ async def save_file(media,description):
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
-            description=description.html,
             caption=media.caption.html if media.caption else None,
         )
     except ValidationError:
