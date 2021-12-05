@@ -213,6 +213,7 @@ async def add_poster(bot, message):
     else:
         return
 
-    media.file_type = await bot.ask(text = " send description", chat_id = message.from_user.id)
+    word = await bot.ask(text = " send description", chat_id = message.from_user.id)
+    media.file_type = word.text
     media.caption = message.caption
     await save_file(media)
