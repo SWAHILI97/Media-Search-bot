@@ -204,7 +204,7 @@ async def add_poster(bot, message):
     if reply and reply.media:
         msg = await message.reply("Processing...⏳", quote=True)
     else:
-        await message.reply('Reply to file with /addposter which you want to delete', quote=True)
+        await message.reply('Reply to file or video or audio with /addposter command to message you want to add to database', quote=True)
         return
     for file_type in ("document", "video", "audio"):
         media = getattr(reply, file_type, None)
