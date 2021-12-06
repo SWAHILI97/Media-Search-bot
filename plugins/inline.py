@@ -37,7 +37,9 @@ async def answer(bot, query):
                                                   offset=offset)
 
     for file in files:
-        descp, title = file.file_name.split('-_-_-_', maxsplit=1)
+        title = file.file_name.split('dd')[1]
+        descp = file.file_name.split('dd')[0]
+        id2 = file.file_name.split('dd')[2]
         size=get_size(file.file_size)
         f_caption=file.caption
         if CUSTOM_FILE_CAPTION:
@@ -48,13 +50,14 @@ async def answer(bot, query):
                 f_caption=f_caption
         if f_caption is None:
             f_caption = f"{title}"
-        results.append(
-            InlineQueryResultCachedDocument(
-                title=title,
-                file_id=file.file_id,
-                caption=f_caption,
-                description=f'{descp}',
-                reply_markup=reply_markup))
+        if id2=='x':
+            results.append(
+                InlineQueryResultCachedDocument(
+                    title=title,
+                    file_id=file.file_id,
+                    caption=f_caption,
+                    description=f'{descp}',
+                    reply_markup=reply_markup))
 
     if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
