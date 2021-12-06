@@ -210,7 +210,7 @@ async def add_poster(bot, message):
         media = getattr(reply, file_type, None)
         if media is not None:
             media.file_type = file_type
-            media.caption = message.caption
+            media.caption = reply.caption
             break
     else:
         return
