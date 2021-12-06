@@ -52,12 +52,12 @@ async def filter(client, message):
         search = message.text
         files = await get_filter_results(query=search)
         if files:
-            for file in files:
-                descp, title = file.file_name.split('-_-_-_', maxsplit=1)
+            for file in files: 
+                title = file.file_name.split('dd')[1]
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {title}"
                 btn.append(
-                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
+                     [InlineKeyboardButton(text=f"{title}",callback_data=f"subinps#{file_id}")]
                     )
         else:
             await client.send_sticker(chat_id=message.from_user.id, sticker='CAADBQADMwIAAtbcmFelnLaGAZhgBwI')
@@ -124,7 +124,7 @@ async def group(client, message):
         files = await get_filter_results(query=search)
         if files:
             for file in files:
-                descp, title = file.file_name.split('-_-_-_', maxsplit=1)
+                title = file.file_name.split('dd')[1]
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {title}"
                 btn.append(
