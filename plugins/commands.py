@@ -209,12 +209,12 @@ async def add_poster(bot, message):
     for file_type in ("document", "video", "audio"):
         media = getattr(reply, file_type, None)
         if media is not None:
+            media.file_type = file_type
+            media.caption = message.caption
             break
     else:
         return
     
-    media.file_type = file_type
-    media.caption = message.caption
     resv = "ddx"
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
     media.file_name = f'{mk.text}{media.file_name}{resv}'
