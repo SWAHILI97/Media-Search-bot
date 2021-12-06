@@ -218,5 +218,5 @@ async def add_poster(bot, message):
     resv = "ddx"
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
     media.file_name = f'{mk.text}{media.file_name}{resv}'
-    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {Mafia.file_type \n file sent to database')
+    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {Media.file_type} \n file sent to database')
     await save_file(media)
