@@ -178,12 +178,15 @@ async def delete(bot, message):
     else:
         await msg.edit('This is not supported file format')
         return
-
-    result = await Media.collection.delete_one({
-        'file_name': media.file_name,
+    files = await get_filter_results(query=media.filename)
+    if files:
+        for file in files: 
+            title = file.file_name.split('dd')[1]
+            result = await Media.collection.delete_one({
+        'file_name': title,
         'file_size': media.file_size,
         'mime_type': media.mime_type
-    })
+             })   
     if result.deleted_count:
         await msg.edit('File is successfully deleted from database')
     else:
