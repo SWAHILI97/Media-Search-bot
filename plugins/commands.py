@@ -218,14 +218,39 @@ async def add_poster(bot, message):
     resv = "ddx"
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
     media.file_name = f'{mk.text}{media.file_name}{resv}'
-    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n file sent to database')
-    await save_file(media)
+    replly = await save_file(media)
+    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly}')
+   
 @Client.on_message(filters.command('adddata') & filters.user(ADMINS))
 async def add_data(bot, message):
     """Media Handler"""
     reply = message.reply_to_message
     if reply and reply.media:
         msg = await message.reply("Processing...⏳", quote=True)
+        for file_type in ("document", "video", "audio"):
+            media = getattr(reply, file_type, None)
+            if media is not None:
+                media.file_type = file_type
+                media.caption = reply.caption
+                break
+        replyi,dcm_id = await save_file(media)
+        if replyi=='file exist':
+            dta = 'stat'
+            while dta!='stat:
+                mk=await bot.ask(text = " send media or document or audio", chat_id = message.from_user.id)
+                if mk.media:
+                    for file_type in ("document", "video", "audio"):
+                        media = getattr(reply, file_type, None)
+                        if media is not None:
+                            media.file_type = file_type
+                            media.caption = reply.caption
+                            break
+    
+                resv = f'dd{dcm_id}'
+                mk = 'datadd'
+                media.file_name = f'{mk.text}{media.file_name}{resv}'
+                await mk.reply(f'{mk}\n caption {media.caption}\n type {media.file_type} \n file sent to database')
+                a,b await save_file(media)
     else:
         await message.reply('Reply to file or video or audio with /addposter command to message you want to add to database', quote=True)
         return
