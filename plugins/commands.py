@@ -221,7 +221,7 @@ async def add_poster(bot, message):
     resv = "dd#x"
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
     media.file_name = f'{mk.text}dd#{media.file_name}{resv}'
-    replly = await save_file(media)
+    replly,dta_I'd = await save_file(media)
     await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly}')
    
 @Client.on_message(filters.command('adddata') & filters.user(ADMINS))
@@ -240,7 +240,7 @@ async def add_data(bot, message):
         if replyi=='file exist':
             dta = 'stat'
             dtb = 'stop'
-            while dta!='stat:
+            while dta!='stat':
                 mk=await bot.ask(text = " send media or document or audio else send stop", chat_id = message.from_user.id)
                 if mk.media:
                     for file_type in ("document", "video", "audio"):
@@ -258,8 +258,9 @@ async def add_data(bot, message):
                 mkv1,mkv2 = mkv.split(' ')
                 mk = 'datadd#'
                 media.file_name = f'{mk}{media.file_name}{resv}dd#{mkv1}dd#{mkv2}'
-                await mk.reply(f'{mk}\n caption {media.caption}\n type {media.file_type} \n file sent to database')
-                a,b await save_file(media)
+                a,b = await save_file(media)
+                await mk.reply(f'{mk}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
+                
     else:
         await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
         return
