@@ -91,9 +91,10 @@ async def save_file(media):
             await file.commit()
         except DuplicateKeyError:
             logger.warning(media.file_name + " is already saved in database")
+            return 'file exist', file_id
         else:
             logger.info(media.file_name + " is saved in database")
-
+            return 'file sent', file_id 
 
 async def get_search_results(query, file_type=None, max_results=10, offset=0):
     """For given query return (results, next_offset)"""
