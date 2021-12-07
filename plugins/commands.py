@@ -181,12 +181,12 @@ async def delete(bot, message):
     files = await get_filter_results(query=media.filename)
     if files:
         for file in files: 
-            title = file.file_name.split('dd')[1]
+            title = file.file_name.split('dd#')[1]
             result = await Media.collection.delete_one({
-        'file_name': title,
-        'file_size': media.file_size,
-        'mime_type': media.mime_type
-             })   
+                'file_name': title,
+                'file_size': media.file_size,
+                'mime_type': media.mime_type
+                })   
     if result.deleted_count:
         await msg.edit('File is successfully deleted from database')
     else:
@@ -218,9 +218,9 @@ async def add_poster(bot, message):
     else:
         return
     
-    resv = "ddx"
+    resv = "dd#x"
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
-    media.file_name = f'{mk.text}{media.file_name}{resv}'
+    media.file_name = f'{mk.text}dd#{media.file_name}{resv}'
     replly = await save_file(media)
     await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly}')
    
@@ -239,35 +239,27 @@ async def add_data(bot, message):
         replyi,dcm_id = await save_file(media)
         if replyi=='file exist':
             dta = 'stat'
+            dtb = 'stop'
             while dta!='stat:
-                mk=await bot.ask(text = " send media or document or audio", chat_id = message.from_user.id)
+                mk=await bot.ask(text = " send media or document or audio else send stop", chat_id = message.from_user.id)
                 if mk.media:
                     for file_type in ("document", "video", "audio"):
-                        media = getattr(reply, file_type, None)
+                        media = getattr(mk, file_type, None)
                         if media is not None:
                             media.file_type = file_type
-                            media.caption = reply.caption
+                            media.caption = mk.caption
                             break
-    
-                resv = f'dd{dcm_id}'
-                mk = 'datadd'
-                media.file_name = f'{mk.text}{media.file_name}{resv}'
+                elif mk.text.lower()==dtb:
+                    dta = 'stop'
+                    await mk.reply(f'all file sent to database with id  {dcm_id}')
+                    break
+                resv = f'dd#{dcm_id}'
+                mkv = await bot.ask(text = " send access true or false join with _ and add season &its episode  or else movie", chat_id = message.from_user.id)
+                mkv1,mkv2 = mkv.split(' ')
+                mk = 'datadd#'
+                media.file_name = f'{mk}{media.file_name}{resv}dd#{mkv1}dd#{mkv2}'
                 await mk.reply(f'{mk}\n caption {media.caption}\n type {media.file_type} \n file sent to database')
                 a,b await save_file(media)
     else:
-        await message.reply('Reply to file or video or audio with /addposter command to message you want to add to database', quote=True)
+        await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
         return
-    for file_type in ("document", "video", "audio"):
-        media = getattr(reply, file_type, None)
-        if media is not None:
-            media.file_type = file_type
-            media.caption = reply.caption
-            break
-    else:
-        return
-    
-    resv = "ddx"
-    mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
-    media.file_name = f'{mk.text}{media.file_name}{resv}'
-    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n file sent to database')
-    await save_file(media)
