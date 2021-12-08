@@ -3,7 +3,7 @@ import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
-from utils import Media, get_file_details, get_size, save_file
+from utils import Media, get_file_details, get_size, save_file, get_filter_results
 from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 
@@ -177,16 +177,17 @@ async def delete(bot, message):
             break
     else:
         await msg.edit('This is not supported file format')
-        return
+    
     files = await get_filter_results(query=media.filename)
     if files:
         for file in files: 
             title = file.file_name.split('dd#')[1]
-            result = await Media.collection.delete_one({
-                'file_name': title,
-                'file_size': media.file_size,
-                'mime_type': media.mime_type
-                })   
+            if title==media.file_name:
+                result = await Media.collection.delete_one({
+                    'file_name': file.file_name,
+                    'file_size': media.file_size,
+                    'mime_type': media.mime_type
+                    })   
     if result.deleted_count:
         await msg.edit('File is successfully deleted from database')
     else:
@@ -222,22 +223,32 @@ async def add_poster(bot, message):
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
     media.file_name = f'{mk.text}dd#{media.file_name}{resv}'
     replly,dta_id = await save_file(media)
-    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly}')
+    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly} with id {dta__id}')
    
 @Client.on_message(filters.command('adddata') & filters.user(ADMINS))
 async def add_data(bot, message):
     """Media Handler"""
     reply = message.reply_to_message
+    pres = 'absent'
     if reply and reply.media:
-        msg = await message.reply("Processing...⏳", quote=True)
+        msg = await reply.reply("Processing...⏳", quote=True)
         for file_type in ("document", "video", "audio"):
             media = getattr(reply, file_type, None)
             if media is not None:
-                media.file_type = file_type
-                media.caption = reply.caption
                 break
-        replyi,dcm_id = await save_file(media)
-        if replyi=='file exist':
+        files = await get_filter_results(query=media.filename)
+        if files:
+            for file in files: 
+                title = file.file_name.split('dd#')[1]
+                if title==media.file_name and file.file_size == media.file_size and file.mime_type == media.mime_type:
+                    pres = 'present'
+                    break  
+        else:
+            await msg.edit('file not found in database please try another file')
+            return
+        statusi = file.file_name.split('dd#')[2] 
+        dcm_id = file.file_id     
+        if statusi == 'x' pres == 'present':
             dta = 'stat'
             dtb = 'stop'
             while dta!='stat':
@@ -260,7 +271,9 @@ async def add_data(bot, message):
                 media.file_name = f'{mkg}{media.file_name}{resv}dd#{mkv1}dd#{mkv2}'
                 a,b = await save_file(media)
                 await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
-                
+        else:
+            await msg.reply("file not accessible in database", quote=True)
+            return
     else:
         await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
         return
