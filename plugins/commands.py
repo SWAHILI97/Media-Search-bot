@@ -223,7 +223,7 @@ async def add_poster(bot, message):
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
     media.file_name = f'{mk.text}dd#{media.file_name}{resv}'
     replly,dta_id = await save_file(media)
-    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly} with id {dta__id}')
+    await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly} with id {dta_id}')
    
 @Client.on_message(filters.command('adddata') & filters.user(ADMINS))
 async def add_data(bot, message):
