@@ -221,7 +221,7 @@ async def add_poster(bot, message):
     resv = "dd#x"
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
     media.file_name = f'{mk.text}dd#{media.file_name}{resv}'
-    replly,dta_I'd = await save_file(media)
+    replly,dta_id = await save_file(media)
     await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly}')
    
 @Client.on_message(filters.command('adddata') & filters.user(ADMINS))
@@ -256,10 +256,10 @@ async def add_data(bot, message):
                 resv = f'dd#{dcm_id}'
                 mkv = await bot.ask(text = " send access true or false join with _ and add season &its episode  or else movie", chat_id = message.from_user.id)
                 mkv1,mkv2 = mkv.split(' ')
-                mk = 'datadd#'
-                media.file_name = f'{mk}{media.file_name}{resv}dd#{mkv1}dd#{mkv2}'
+                mkg = 'datadd#'
+                media.file_name = f'{mkg}{media.file_name}{resv}dd#{mkv1}dd#{mkv2}'
                 a,b = await save_file(media)
-                await mk.reply(f'{mk}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
+                await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
                 
     else:
         await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
