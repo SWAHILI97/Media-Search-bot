@@ -266,7 +266,7 @@ async def add_data(bot, message):
                     break
                 resv = f'dd#{dcm_id}'
                 mkv = await bot.ask(text = " send access true or false join with _ and add season &its episode  or else movie", chat_id = message.from_user.id)
-                mkv1,mkv2 = mkv.split(' ')
+                mkv1,mkv2 = mkv.split('_')
                 mkg = 'datadd#'
                 media.file_name = f'{mkg}{media.file_name}{resv}dd#{mkv1}dd#{mkv2}'
                 a,b = await save_file(media)
