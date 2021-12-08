@@ -53,7 +53,7 @@ async def filter(client, message):
         files = await get_filter_results(query=search)
         if files:
             for file in files: 
-                title = file.file_name.split('dd')[1]
+                title = file.file_name.split('dd#')[1]
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {title}"
                 btn.append(
@@ -124,7 +124,7 @@ async def group(client, message):
         files = await get_filter_results(query=search)
         if files:
             for file in files:
-                title = file.file_name.split('dd')[1]
+                title = file.file_name.split('dd#')[1]
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {title}"
                 btn.append(
