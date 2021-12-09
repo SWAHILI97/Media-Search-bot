@@ -251,7 +251,7 @@ async def add_data(bot, message):
         if statusi == 'x' and pres == 'present':
             dta = 'stat'
             dtb = 'stop'
-            while dta!='stat':
+            while dta!='stop':
                 mk=await bot.ask(text = " send media or document or audio else send stop", chat_id = message.from_user.id)
                 if mk.media:
                     for file_type in ("document", "video", "audio"):
