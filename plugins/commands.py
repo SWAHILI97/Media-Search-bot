@@ -181,17 +181,17 @@ async def delete(bot, message):
     files = await get_filter_results(query=media.file_name)
     if files:
         for file in files: 
-            title = file.file_name.split('dd#')[1]
+            title = file.file_name.split('.dd#.')[1]
             if title==media.file_name:
                 result = await Media.collection.delete_one({
                     'file_name': file.file_name,
                     'file_size': media.file_size,
                     'mime_type': media.mime_type
                     })   
-    if result.deleted_count:
-        await msg.edit('File is successfully deleted from database')
-    else:
-        await msg.edit('File not found in database')
+        if result.deleted_count:
+            await msg.edit('File is successfully deleted from database')
+        else:
+            await msg.edit('File not found in database')
 @Client.on_message(filters.command('about'))
 async def bot_info(bot, message):
     buttons = [
@@ -219,9 +219,9 @@ async def add_poster(bot, message):
     else:
         return
     
-    resv = "dd#x"
+    resv = ".dd#.x"
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
-    media.file_name = f'{mk.text}dd#{media.file_name}{resv}'
+    media.file_name = f'{mk.text}.dd#.{media.file_name}{resv}'
     replly,dta_id = await save_file(media)
     await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly} with id {dta_id}')
    
@@ -239,14 +239,14 @@ async def add_data(bot, message):
         files = await get_filter_results(query=media.file_name)
         if files:
             for file in files: 
-                title = file.file_name.split('dd#')[1]
+                title = file.file_name.split('.dd#.')[1]
                 if title==media.file_name and file.file_size == media.file_size and file.mime_type == media.mime_type:
                     pres = 'present'
                     break  
         else:
             await msg.edit('file not found in database please try another file')
             return
-        statusi = file.file_name.split('dd#')[2] 
+        statusi = file.file_name.split('.dd#.')[2] 
         dcm_id = file.file_id     
         if statusi == 'x' and pres == 'present':
             dta = 'stat'
@@ -264,11 +264,11 @@ async def add_data(bot, message):
                     dta = 'stop'
                     await mk.reply(f'all file sent to database with id  {dcm_id}')
                     break
-                resv = f'dd#{dcm_id}'
+                resv = f'.dd#.{dcm_id}'
                 mkv = await bot.ask(text = " send access true or false join with _ and add season &its episode  or else movie", chat_id = message.from_user.id)
                 mkv1,mkv2 = mkv.split('_')
-                mkg = 'datadd#'
-                media.file_name = f'{mkg}{media.file_name}{resv}dd#{mkv1}dd#{mkv2}'
+                mkg = 'data.dd#.'
+                media.file_name = f'{mkg}{media.file_name}{resv}.dd#.{mkv1}.dd#.{mkv2}'
                 a,b = await save_file(media)
                 await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
         else:
