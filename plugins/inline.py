@@ -12,7 +12,11 @@ cache_time = 0 if AUTH_USERS or AUTH_CHANNEL else CACHE_TIME
 @Client.on_inline_query(filters.user(AUTH_USERS) if AUTH_USERS else None)
 async def answer(bot, query):
     """Show search results for given inline query"""
-
+    nyva=BOT.get("username")
+    if not nyva:
+        botusername=await client.get_me()
+        nyva=botusername.username
+        BOT["username"]=nyva
     if AUTH_CHANNEL and not await is_subscribed(bot, query):
         await query.answer(results=[],
                            cache_time=0,
@@ -50,7 +54,7 @@ async def answer(bot, query):
         if f_caption is None:
             f_caption = f"{title}"
         if id2=='x':
-            reply_markup=get_reply_markup(string,file.file_id)
+            reply_markup=get_reply_markup(string,file.file_id,nyva)
             results.append(
                 InlineQueryResultCachedDocument(
                     title=title,
@@ -90,12 +94,7 @@ async def answer(bot, query):
                            switch_pm_parameter="okay")
 
 
-def get_reply_markup(query, file_id):
-    nyva=BOT.get("username")
-    if not nyva:
-        botusername=await client.get_me()
-        nyva=botusername.username
-        BOT["username"]=nyva
+def get_reply_markup(query, file_id, nyva):
     buttons = [
         [
             InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
