@@ -236,7 +236,7 @@ async def add_data(bot, message):
             media = getattr(reply, file_type, None)
             if media is not None:
                 break
-        files = await get_filter_results(query=media.filename)
+        files = await get_filter_results(query=media.file_name)
         if files:
             for file in files: 
                 title = file.file_name.split('dd#')[1]
