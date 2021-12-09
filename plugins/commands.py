@@ -248,7 +248,7 @@ async def add_data(bot, message):
             return
         statusi = file.file_name.split('dd#')[2] 
         dcm_id = file.file_id     
-        if statusi == 'x' pres == 'present':
+        if statusi == 'x' and pres == 'present':
             dta = 'stat'
             dtb = 'stop'
             while dta!='stat':
