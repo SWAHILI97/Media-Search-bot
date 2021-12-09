@@ -37,9 +37,9 @@ async def answer(bot, query):
                                                   offset=offset)
 
     for file in files:
-        title = file.file_name.split('dd#')[1]
-        descp = file.file_name.split('dd#')[0]
-        id2 = file.file_name.split('dd#')[2]
+        title = file.file_name.split('.dd#.')[1]
+        descp = file.file_name.split('.dd#.')[0]
+        id2 = file.file_name.split('.dd#.')[2]
         size=get_size(file.file_size)
         f_caption=file.caption
         if CUSTOM_FILE_CAPTION:
