@@ -30,7 +30,6 @@ async def answer(bot, query):
         file_type = None
 
     offset = int(query.offset or 0)
-    reply_markup = get_reply_markup(query=string)
     files, next_offset = await get_search_results(string,
                                                   file_type=file_type,
                                                   max_results=10,
@@ -57,7 +56,7 @@ async def answer(bot, query):
                     file_id=file.file_id,
                     caption=f_caption,
                     description=f'{descp}',
-                    reply_markup=reply_markup))
+                    reply_markup=get_reply_markup(query=string,file_id)))
 
     if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
@@ -90,14 +89,16 @@ async def answer(bot, query):
                            switch_pm_parameter="okay")
 
 
-def get_reply_markup(query):
+def get_reply_markup(query, file_id):
+    nyva=BOT.get("username")
+    if not nyva:
+        botusername=await client.get_me()
+        nyva=botusername.username
+        BOT["username"]=nyva
     buttons = [
         [
             InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
-            InlineKeyboardButton('More Bots', url='https://t.me/subin_works/122')
+            InlineKeyboardButton('Download', url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")
         ]
         ]
     return InlineKeyboardMarkup(buttons)
-
-
-
