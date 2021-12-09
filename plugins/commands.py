@@ -178,7 +178,7 @@ async def delete(bot, message):
     else:
         await msg.edit('This is not supported file format')
     
-    files = await get_filter_results(query=media.filename)
+    files = await get_filter_results(query=media.file_name)
     if files:
         for file in files: 
             title = file.file_name.split('dd#')[1]
