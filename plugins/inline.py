@@ -56,7 +56,7 @@ async def answer(bot, query):
                     file_id=file.file_id,
                     caption=f_caption,
                     description=f'{descp}',
-                    reply_markup=get_reply_markup(query=string,file_id)))
+                    reply_markup=get_reply_markup(query=string,file.file_id)))
 
     if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
