@@ -260,17 +260,18 @@ async def add_data(bot, message):
                             media.file_type = file_type
                             media.caption = mk.caption
                             break
+                    resv = f'.dd#.{dcm_id}'
+                    mkv = await bot.ask(text = " send access true or false join with _ and add season &its episode  or else movie", chat_id = message.from_user.id)
+                    mkv1,mkv2 = mkv.text.split('_')
+                    mkg = 'data.dd#.'
+                    media.file_name = f'{mkg}{media.file_name}{resv}.dd#.{mkv1}.dd#.{mkv2}'
+                    a,b = await save_file(media)
+                    await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
+
                 elif mk.text.lower()==dtb:
                     dta = 'stop'
                     await mk.reply(f'all file sent to database with id  {dcm_id}')
                     break
-                resv = f'.dd#.{dcm_id}'
-                mkv = await bot.ask(text = " send access true or false join with _ and add season &its episode  or else movie", chat_id = message.from_user.id)
-                mkv1,mkv2 = mkv.split('_')
-                mkg = 'data.dd#.'
-                media.file_name = f'{mkg}{media.file_name}{resv}.dd#.{mkv1}.dd#.{mkv2}'
-                a,b = await save_file(media)
-                await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
         else:
             await msg.reply("file not accessible in database", quote=True)
             return
