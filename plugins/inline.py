@@ -50,13 +50,14 @@ async def answer(bot, query):
         if f_caption is None:
             f_caption = f"{title}"
         if id2=='x':
+            reply_markup=get_reply_markup(string,file.file_id)
             results.append(
                 InlineQueryResultCachedDocument(
                     title=title,
                     file_id=file.file_id,
                     caption=f_caption,
                     description=f'{descp}',
-                    reply_markup=get_reply_markup(query=string,file.file_id)))
+                    reply_markup=reply_markup))
 
     if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
