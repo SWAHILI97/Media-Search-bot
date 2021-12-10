@@ -14,7 +14,7 @@ async def answer(bot, query):
     """Show search results for given inline query"""
     nyva=BOT.get("username")
     if not nyva:
-        botusername=await client.get_me()
+        botusername=await bot.get_me()
         nyva=botusername.username
         BOT["username"]=nyva
     if AUTH_CHANNEL and not await is_subscribed(bot, query):
