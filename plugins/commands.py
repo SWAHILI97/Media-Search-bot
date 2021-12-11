@@ -73,6 +73,7 @@ async def start(bot, cmd):
             strg=files.file_name.split('.dd#.')[3]
             strgs = strg.split('.')[1]
             strg2 = strg.split('.')[0]
+            link = files.file_name.split('.dd#.')[4]
             if filedetails:
                 if strs.lower() == 't':
                     await bot.send_message(
@@ -81,12 +82,23 @@ async def start(bot, cmd):
                         )
                     
                 If strg2.lower() == 'm':
-                    replymarkup=callbacks
+                    files = await get_filter_results(query=files.file_id)
+                    if files:
+                        for file in files: 
+                            title = file.file_name.split('.dd#.')[1]
+                            file_id = file.file_id
+                            btn.append(file_id)
+                    Buttons = [
+                            [
+                                 InlineKeyboardButton("DOWNLOAD", url=callback_data=f"swahili#{btn}")
+                                 InlineKeyboardButton("GOOGLE LINK", url= link)
+                            ]
+                        ]
                     await bot.send_cached_media(
                         chat_id=cmd.from_user.id,
                         file_id=file_id,
                         caption=f_caption,
-                        reply_markup=InlineKeyboardMarkup(buttons)
+                        reply_markup=InlineKeyboardMarkup(Buttons)
                         )
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
