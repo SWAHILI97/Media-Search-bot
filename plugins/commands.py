@@ -90,7 +90,7 @@ async def start(bot, cmd):
                             btn.append(file_id)
                     Buttons = [
                             [
-                                 InlineKeyboardButton("DOWNLOAD", url=callback_data=f"swahili#{btn}")
+                                 InlineKeyboardButton("DOWNLOAD", url=callback_data=f"subinps#{btn}")
                                  InlineKeyboardButton("GOOGLE LINK", url= link)
                             ]
                         ]
@@ -312,5 +312,35 @@ async def cb_handler(client: Client, query: CallbackQuery):
         typed = query.from_user.id
         pass
     if (clicked == typed):
+        if query.data.startswith("subinps"):
+            ident, file_id = query.data.split("#")
+            for file in file_id:
+                filedetails = await get_file_details(file)
+                for files in filedetails:
+                    title = files.file_name
+                    size=get_size(files.file_size)
+                    f_caption=files.caption
+                    if CUSTOM_FILE_CAPTION:
+                        try:
+                            f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                        except Exception as e:
+                            print(e)
+                            f_caption=f_caption
+                    if f_caption is None:
+                        f_caption = f"{files.file_name}"
+                    buttons = [
+                        [
+                            InlineKeyboardButton('More Bots', url='https://t.me/subin_works/122'),
+                            InlineKeyboardButton('Update Channel', url='https://t.me/subin_works')
+                        ]
+                        ]
+                
+                    await query.answer()
+                    await client.send_cached_media(
+                        chat_id=query.from_user.id,
+                        file_id=file_id,
+                        caption=f_caption,
+                        reply_markup=InlineKeyboardMarkup(buttons)
+                        )
 
         
