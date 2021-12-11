@@ -302,3 +302,15 @@ async def add_data(bot, message):
     else:
         await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
         return
+
+@Client.on_callback_query()
+async def cb_handler(client: Client, query: CallbackQuery):
+    clicked = query.from_user.id
+    try:
+        typed = query.message.reply_to_message.from_user.id
+    except:
+        typed = query.from_user.id
+        pass
+    if (clicked == typed):
+
+        
