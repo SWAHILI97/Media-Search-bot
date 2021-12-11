@@ -70,12 +70,24 @@ async def start(bot, cmd):
                         InlineKeyboardButton('More Bots', url='https://t.me/subin_works/122')
                     ]
                     ]
-                await bot.send_cached_media(
-                    chat_id=cmd.from_user.id,
-                    file_id=file_id,
-                    caption=f_caption,
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                    )
+            strg=files.file_name.split('.dd#.')[3]
+            strgs = strg.split('.')[1]
+            strg2 = strg.split('.')[0]
+            if filedetails:
+                if strs.lower() == 't':
+                    await bot.send_message(
+                        chat_id=cmd.from_user.id,
+                        text="Something went Wrong"
+                        )
+                    return
+                If strg2.lower() == 'm':
+                    
+                    await bot.send_cached_media(
+                        chat_id=cmd.from_user.id,
+                        file_id=file_id,
+                        caption=f_caption,
+                        reply_markup=InlineKeyboardMarkup(buttons)
+                        )
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
     elif len(cmd.command) > 1 and cmd.command[1] == 'subscribe':
