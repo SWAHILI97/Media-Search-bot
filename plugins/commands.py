@@ -81,7 +81,7 @@ async def start(bot, cmd):
                         text="Something went Wrong"
                         )
                     
-                If strg2.lower() == 'm':
+                if strg2.lower() == 'm':
                     files = await get_filter_results(query=files.file_id)
                     if files:
                         for file in files: 
