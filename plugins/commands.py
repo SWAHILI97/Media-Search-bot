@@ -64,12 +64,6 @@ async def start(bot, cmd):
                         f_caption=f_caption
                 if f_caption is None:
                     f_caption = f"{files.file_name}"
-                buttons = [
-                    [
-                        InlineKeyboardButton('Search again', switch_inline_query_current_chat=''),
-                        InlineKeyboardButton('More Bots', url='https://t.me/subin_works/122')
-                    ]
-                    ]
             strg=files.file_name.split('.dd#.')[3]
             strgs = strg.split('.')[1]
             strg2 = strg.split('.')[0]
@@ -82,7 +76,7 @@ async def start(bot, cmd):
                         )
                     
                 if strg2.lower() == 'm':
-                    Buttons = [
+                    buttns = [
                             [
                                  InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps#{files.file_id}"),
                                  InlineKeyboardButton("GOOGLE LINK",url= link)
@@ -92,7 +86,7 @@ async def start(bot, cmd):
                         chat_id=cmd.from_user.id,
                         file_id=file_id,
                         caption=f_caption,
-                        reply_markup=InlineKeyboardMarkup(Buttons)
+                        reply_markup=InlineKeyboardMarkup(buttns)
                         )
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
