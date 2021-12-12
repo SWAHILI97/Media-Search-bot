@@ -247,7 +247,7 @@ async def add_poster(bot, message):
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
     access = await bot.ask(text = " send access and type eg m.t that is movie and access true", chat_id = message.from_user.id)
     link = await bot.ask(text = " send link", chat_id = message.from_user.id)
-    media.file_name = f'{mk.text}.dd#.{media.file_name}{resv}.dd#.{acces}.dd#.{link}'
+    media.file_name = f'{mk.text}.dd#.{media.file_name}{resv}.dd#.{access.text}.dd#.{link.text}'
     replly,dta_id = await save_file(media)
     await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly} with id {dta_id}')
    
