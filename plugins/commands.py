@@ -82,16 +82,9 @@ async def start(bot, cmd):
                         )
                     
                 if strg2.lower() == 'm':
-                    btn=[]
-                    files = await get_filter_results(query=files.file_id)
-                    if files:
-                        for file in files: 
-                            title = file.file_name.split('.dd#.')[1]
-                            file_id = file.file_id
-                            btn.append(file_id)
                     Buttons = [
                             [
-                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps#{btn}"),
+                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps#{files.file_id}"),
                                  InlineKeyboardButton("GOOGLE LINK",url= link)
                             ]
                         ]
@@ -317,8 +310,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
     if (clicked == typed):
         if query.data.startswith("subinps"):
             ident, file_id = query.data.split("#")
-            for file in file_id:
-                filedetails = await get_file_details(file)
+            filez=await get_filter_results(file_id)
+            for file in filez:
+                filedetails = await get_file_details(file.file_id)
                 for files in filedetails:
                     title = files.file_name
                     size=get_size(files.file_size)
