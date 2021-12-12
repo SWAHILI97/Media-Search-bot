@@ -305,7 +305,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith("subinps"):
             ident, file_id = query.data.split("#")
             filez=await get_filter_results(file_id)
-            for file in filez:
+            for file in reversed(filez):
                 filedetails = await get_file_details(file.file_id)
                 for files in filedetails:
                     title = files.file_name
