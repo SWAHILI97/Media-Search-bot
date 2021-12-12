@@ -75,7 +75,7 @@ async def start(bot, cmd):
             strg2 = strg.split('.')[0]
             link = files.file_name.split('.dd#.')[4]
             if filedetails:
-                if strs.lower() == 't':
+                if strgs.lower() == 't':
                     await bot.send_message(
                         chat_id=cmd.from_user.id,
                         text="Something went Wrong"
