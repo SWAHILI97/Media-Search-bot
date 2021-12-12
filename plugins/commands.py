@@ -90,8 +90,8 @@ async def start(bot, cmd):
                             btn.append(file_id)
                     Buttons = [
                             [
-                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps#{btn}")
-                                 InlineKeyboardButton("GOOGLE LINK", url= link)
+                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps#{btn}"),
+                                 InlineKeyboardButton("GOOGLE LINK",url= link)
                             ]
                         ]
                     await bot.send_cached_media(
