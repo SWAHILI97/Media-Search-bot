@@ -82,6 +82,7 @@ async def start(bot, cmd):
                         )
                     
                 if strg2.lower() == 'm':
+                    btn=[]
                     files = await get_filter_results(query=files.file_id)
                     if files:
                         for file in files: 
