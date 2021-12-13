@@ -293,7 +293,7 @@ async def add_data(bot, message):
                             break
                     resv = f'.dd#.{dcm_id}'
                     mkg = 'data.dd#.'
-                    media.file_name = f'{mkg}{media.file_name}{resv}.d#.{mk}'
+                    media.file_name = f'{mkg}{media.file_name}{resv}.d#.{mkv.text}'
                     a,b = await save_file(media)
                     await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
 
