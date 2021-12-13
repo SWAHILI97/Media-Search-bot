@@ -97,6 +97,12 @@ async def start(bot, cmd):
                         if i not in output:
                             output.append(InlineKeyboardButton(f"{i}",callback_data=f"subinps#{x}" ))
                     buttons=list(split_list(output,2)
+                    await bot.send_cached_media(
+                        chat_id=cmd.from_user.id,
+                        file_id=file_id,
+                        caption=f_caption,
+                        reply_markup=InlineKeyboardMarkup(buttons)
+                        )
                     
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
@@ -243,7 +249,7 @@ async def add_poster(bot, message):
     
     resv = ".dd#.x"
     mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
-    access = await bot.ask(text = " send access and type eg m.t that is movie and access true", chat_id = message.from_user.id)
+    access = await bot.ask(text = " send access and type eg m.t that is movie and access true or s.t series true", chat_id = message.from_user.id)
     link = await bot.ask(text = " send link", chat_id = message.from_user.id)
     media.file_name = f'{mk.text}.dd#.{media.file_name}{resv}.dd#.{access.text}.dd#.{link.text}'
     replly,dta_id = await save_file(media)
@@ -275,6 +281,7 @@ async def add_data(bot, message):
         if statusi == 'x' and pres == 'present':
             dta = 'stat'
             dtb = 'stop'
+            mkv = await bot.ask(text = " send batch name season(S01EP(1-10)) or else movie", chat_id = message.from_user.id)
             while dta!='stop':
                 mk=await bot.ask(text = " send media or document or audio else send stop", chat_id = message.from_user.id)
                 if mk.media:
@@ -285,10 +292,8 @@ async def add_data(bot, message):
                             media.caption = mk.caption
                             break
                     resv = f'.dd#.{dcm_id}'
-                    mkv = await bot.ask(text = " send access true or false join with _ and add season &its episode  or else movie", chat_id = message.from_user.id)
-                    mkv1,mkv2 = mkv.text.split('_')
                     mkg = 'data.dd#.'
-                    media.file_name = f'{mkg}{media.file_name}{resv}.dd#.{mkv1}.dd#.{mkv2}'
+                    media.file_name = f'{mkg}{media.file_name}{resv}.d#.{mk}'
                     a,b = await save_file(media)
                     await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
 
