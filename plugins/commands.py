@@ -88,6 +88,13 @@ async def start(bot, cmd):
                         caption=f_caption,
                         reply_markup=InlineKeyboardMarkup(buttns)
                         )
+                elif strg2.lower() == 's':
+                    filef=await get_filter_results(file_id)
+                    output = []
+                    for x in filef.file_name:
+                        if x not in output:
+                            output.append(x)
+                    
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
     elif len(cmd.command) > 1 and cmd.command[1] == 'subscribe':
