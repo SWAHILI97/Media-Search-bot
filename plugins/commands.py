@@ -98,7 +98,7 @@ async def start(bot, cmd):
                         dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps#{i}" )
                         if dataa not in output:
                             output.append(dataa)
-                    buttons=list(split_list(output,2))
+                    buttons=[output]
                     await bot.send_cached_media(
                         chat_id=cmd.from_user.id,
                         file_id=file_id,
