@@ -96,7 +96,7 @@ async def start(bot, cmd):
                         i= x.file_name.split('.dd#.')[1]
                         b= i.split('.d#.')[1]
                         dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps#{i}" )
-                        if i not in output:
+                        if dataa not in output:
                             output.append(dataa)
                     buttons=list(split_list(output,2))
                     await bot.send_cached_media(
