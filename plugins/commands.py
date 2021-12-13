@@ -91,7 +91,7 @@ async def start(bot, cmd):
                 elif strg2.lower() == 's':
                     filef=await get_filter_results(file_id)
                     output = []
-                    output.append(link)
+                    output.append(InlineKeyboardButton("GOOGLE LINK",url= link))
                     for x in filef.file_name:
                         i= x.split('.d#.')[1]
                         if i not in output:
