@@ -78,7 +78,7 @@ async def start(bot, cmd):
                 if strg2.lower() == 'm':
                     buttns = [
                             [
-                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps#{files.file_id}"),
+                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}"),
                                  InlineKeyboardButton("GOOGLE LINK",url= link)
                             ]
                         ]
@@ -95,7 +95,7 @@ async def start(bot, cmd):
                     for x in filef:
                         i= x.file_name.split('.dd#.')[2]
                         b= i.split('.d#.')[1]
-                        dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps#{i}" )
+                        dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{i}" )
                         if dataa not in output:
                             output.append(dataa)
                     buttons=list(split_list(output,2))
@@ -324,7 +324,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         pass
     if (clicked == typed):
         if query.data.startswith("subinps"):
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split(".dd#.")
             filez=await get_filter_results(file_id)
             for file in reversed(filez):
                 filedetails = await get_file_details(file.file_id)
