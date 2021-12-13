@@ -91,9 +91,12 @@ async def start(bot, cmd):
                 elif strg2.lower() == 's':
                     filef=await get_filter_results(file_id)
                     output = []
+                    output.append(link)
                     for x in filef.file_name:
-                        if x not in output:
-                            output.append(x)
+                        i= x.split('.d#.')[1]
+                        if i not in output:
+                            output.append(InlineKeyboardButton(f"{i}",callback_data=f"subinps#{x}" ))
+                    buttons=list(split_list(output,2)
                     
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
@@ -299,6 +302,10 @@ async def add_data(bot, message):
     else:
         await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
         return
+
+def split_list(l, n):
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
