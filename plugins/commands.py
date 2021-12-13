@@ -93,12 +93,12 @@ async def start(bot, cmd):
                     output = []
                     output.append(InlineKeyboardButton("GOOGLE LINK",url= link))
                     for x in filef:
-                        i= x.file_name.split('.dd#.')[1]
+                        i= x.file_name.split('.dd#.')[2]
                         b= i.split('.d#.')[1]
                         dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps#{i}" )
                         if dataa not in output:
                             output.append(dataa)
-                    buttons=[output]
+                    buttons=list(split_list(output,2))
                     await bot.send_cached_media(
                         chat_id=cmd.from_user.id,
                         file_id=file_id,
