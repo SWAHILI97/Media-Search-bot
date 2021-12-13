@@ -96,7 +96,7 @@ async def start(bot, cmd):
                         i= x.split('.d#.')[1]
                         if i not in output:
                             output.append(InlineKeyboardButton(f"{i}",callback_data=f"subinps#{x}" ))
-                    buttons=list(split_list(output,2)
+                    buttons=list(split_list(output,2))
                     await bot.send_cached_media(
                         chat_id=cmd.from_user.id,
                         file_id=file_id,
