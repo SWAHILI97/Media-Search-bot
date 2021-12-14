@@ -78,7 +78,7 @@ async def start(bot, cmd):
                 if strg2.lower() == 'm':
                     buttns = [
                             [
-                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}m"),
+                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}"),
                                  InlineKeyboardButton("GOOGLE LINK",url= link)
                             ]
                         ]
@@ -95,7 +95,8 @@ async def start(bot, cmd):
                     for x in filef:
                         i= x.file_name.split('.dd#.')[2]
                         a,b= i.split('.d#.')
-                        dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{a}" )
+                        l1,l2= a.split('@.')
+                        dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{l1} {l2}" )
                         if dataa not in output:
                             output.append(dataa)
                     buttons=list(split_list(output,2))
@@ -294,9 +295,9 @@ async def add_data(bot, message):
                             media.file_type = file_type
                             media.caption = mk.caption
                             break
-                    resv = f'.dd#.{dcm_id}'
+                    resv = f'{dcm_id}'
                     mkg = 'data.dd#.'
-                    media.file_name = f'{mkg}{media.file_name}{resv}{mkv1}.d#.{mkv2}'
+                    media.file_name = f'{mkg}{media.file_name}.dd#.H{mkv1}@.{resv}.d#.{mkv2}'
                     a,b = await save_file(media)
                     await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
 
