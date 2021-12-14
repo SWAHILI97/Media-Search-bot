@@ -78,7 +78,7 @@ async def start(bot, cmd):
                 if strg2.lower() == 'm':
                     buttns = [
                             [
-                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}"),
+                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}m"),
                                  InlineKeyboardButton("GOOGLE LINK",url= link)
                             ]
                         ]
@@ -94,7 +94,7 @@ async def start(bot, cmd):
                     output.append(InlineKeyboardButton("GOOGLE LINK",url= link))
                     for x in filef:
                         i= x.file_name.split('.dd#.')[2]
-                        b= i.split('.d#.')[1]
+                        a,b= i.split('.d#.')
                         dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{i}" )
                         if dataa not in output:
                             output.append(dataa)
