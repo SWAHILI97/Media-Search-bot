@@ -283,7 +283,8 @@ async def add_data(bot, message):
         if statusi == 'x' and pres == 'present':
             dta = 'stat'
             dtb = 'stop'
-            mkv = await bot.ask(text = " send batch name season(S01EP(1-10)) or else movie", chat_id = message.from_user.id)
+            mkv = await bot.ask(text = " send batch name season start with last ep separate by hash e.g 10#(S01EP(1-10)) or else m#movie", chat_id = message.from_user.id)
+            mkv1,mkv2 = mkv.text.split('#')
             while dta!='stop':
                 mk=await bot.ask(text = " send media or document or audio else send stop", chat_id = message.from_user.id)
                 if mk.media:
@@ -295,7 +296,7 @@ async def add_data(bot, message):
                             break
                     resv = f'.dd#.{dcm_id}'
                     mkg = 'data.dd#.'
-                    media.file_name = f'{mkg}{media.file_name}{resv}.d#.{mkv.text}'
+                    media.file_name = f'{mkg}{media.file_name}{resv}{mkv1}.d#.{mkv2}'
                     a,b = await save_file(media)
                     await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
 
