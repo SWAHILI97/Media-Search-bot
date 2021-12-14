@@ -95,7 +95,7 @@ async def start(bot, cmd):
                     for x in filef:
                         i= x.file_name.split('.dd#.')[2]
                         a,b= i.split('.d#.')
-                        dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{i}" )
+                        dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{a}" )
                         if dataa not in output:
                             output.append(dataa)
                     buttons=list(split_list(output,2))
