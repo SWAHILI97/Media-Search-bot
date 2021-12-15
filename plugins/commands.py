@@ -69,43 +69,40 @@ async def start(bot, cmd):
             strg2 = strg.split('.')[0]
             link = files.file_name.split('.dd#.')[4]
             if filedetails:
-                if strgs.lower() == 't':
-                    await bot.send_message(
-                        chat_id=cmd.from_user.id,
-                        text="Something went Wrong"
-                        )
-                    
-                if strg2.lower() == 'm':
-                    buttns = [
-                            [
-                                 InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}"),
-                                 InlineKeyboardButton("GOOGLE LINK",url= link)
+                ban_status = await db.get_ban_status(chat_id)
+                
+                if strgs.lower() == 'f' or ban_status["is_banned"]:
+                    if strg2.lower() == 'm':
+                        buttns = [
+                                [
+                                     InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}"),
+                                     InlineKeyboardButton("GOOGLE LINK",url= link)
+                                ]
                             ]
-                        ]
-                    await bot.send_cached_media(
-                        chat_id=cmd.from_user.id,
-                        file_id=file_id,
-                        caption=f_caption,
-                        reply_markup=InlineKeyboardMarkup(buttns)
-                        )
-                elif strg2.lower() == 's':
-                    filef=await get_filter_results(file_id)
-                    output = []
-                    output.append(InlineKeyboardButton("GOOGLE LINK",url= link))
-                    for x in filef:
-                        i= x.file_name.split('.dd#.')[2]
-                        a,b= i.split('.d#.')
-                        l1,l2= a.split('@.')
-                        dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{l1} {l2}" )
-                        if dataa not in output:
-                            output.append(dataa)
-                    buttons=list(split_list(output,2))
-                    await bot.send_cached_media(
-                        chat_id=cmd.from_user.id,
-                        file_id=file_id,
-                        caption=f_caption,
-                        reply_markup=InlineKeyboardMarkup(buttons)
-                        )
+                        await bot.send_cached_media(
+                            chat_id=cmd.from_user.id,
+                            file_id=file_id,
+                            caption=f_caption,
+                            reply_markup=InlineKeyboardMarkup(buttns)
+                            )
+                    elif strg2.lower() == 's':
+                        filef=await get_filter_results(file_id)
+                        output = []
+                        output.append(InlineKeyboardButton("GOOGLE LINK",url= link))
+                        for x in filef:
+                            i= x.file_name.split('.dd#.')[2]
+                            a,b= i.split('.d#.')
+                            l1,l2= a.split('@.')
+                            dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{l1} {l2}" )
+                            if dataa not in output:
+                                output.append(dataa)
+                        buttons=list(split_list(output,2))
+                        await bot.send_cached_media(
+                            chat_id=cmd.from_user.id,
+                            file_id=file_id,
+                            caption=f_caption,
+                            reply_markup=InlineKeyboardMarkup(buttons)
+                            )
                     
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
