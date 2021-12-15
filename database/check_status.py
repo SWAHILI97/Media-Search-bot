@@ -1,6 +1,6 @@
 import datetime
 from info import DATABASE_NAME, DATABASE_URI, Channel
-from database import user_status
+from database.user_status import Database
 
 db = Database(DATABASE_URI, DATABASE_NAME)
 
