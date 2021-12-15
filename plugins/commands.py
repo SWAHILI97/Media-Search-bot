@@ -1,5 +1,6 @@
 import os
 import logging
+from database.user_status import db
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
@@ -69,8 +70,7 @@ async def start(bot, cmd):
             strg2 = strg.split('.')[0]
             link = files.file_name.split('.dd#.')[4]
             if filedetails:
-                ban_status = await db.get_ban_status(chat_id)
-                
+                ban_status = await db.get_ban_status(cmd.from_user.id)
                 if strgs.lower() == 'f' or ban_status["is_banned"]:
                     if strg2.lower() == 'm':
                         buttns = [
