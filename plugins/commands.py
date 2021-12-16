@@ -110,7 +110,7 @@ async def start(bot, cmd):
                         reply_markup=InlineKeyboar(
                             [
                                 [
-                                    InlineKeyboardButton("🇹🇿 TANZANIA", callback_data = "tanzania")
+                                    InlineKeyboardButton("🇹🇿 TANZANIA", callback_data = "tanzania"),
                                     InlineKeyboardButton("🇰🇪 KENYA",callback_data ="kenya" )
                                 ]
                             ]
