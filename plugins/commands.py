@@ -106,7 +106,15 @@ async def start(bot, cmd):
                 else:
                     await await bot.send_message(
                         chat_id=cmd.from_user.id,
-                        text=f"Samahani username nmeshindwa kukuruhusu kendelea kwa sababu muv au sizon uliochagua n za kulipia\n Tafadhal chagua nchi kuweza kulipia "
+                        text=f"Samahani username nmeshindwa kukuruhusu kendelea kwa sababu muv au sizon uliochagua n za kulipia\n Tafadhal chagua nchi kuweza kulipia",
+                        reply_markup=InlineKeyboar(
+                            [
+                                [
+                                    InlineKeyboardButton("🇹🇿 TANZANIA", callback_data = "tanzania")
+                                    InlineKeyboardButton("🇰🇪 KENYA",callback_data ="kenya" )
+                                ]
+                            ]
+                            )
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
     elif len(cmd.command) > 1 and cmd.command[1] == 'subscribe':
