@@ -107,7 +107,7 @@ async def start(bot, cmd):
                     await await bot.send_message(
                         chat_id=cmd.from_user.id,
                         text=f"Samahani username nmeshindwa kukuruhusu kendelea kwa sababu muv au sizon uliochagua n za kulipia\n Tafadhal chagua nchi kuweza kulipia",
-                        reply_markup=InlineKeyboar(
+                        reply_markup=InlineKeyboardMarkup(
                             [
                                 [
                                     InlineKeyboardButton("🇹🇿 TANZANIA", callback_data = "tanzania"),
