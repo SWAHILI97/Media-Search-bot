@@ -145,8 +145,8 @@ async def start(bot, cmd):
                         InlineKeyboardButton("About", callback_data="about")
                     ]
                 ]
+                )
             )
-        )
 
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
