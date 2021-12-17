@@ -128,8 +128,8 @@ async def start(bot, cmd):
                         InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
                     ]
                 ]
+                )
             )
-        )
     else:
         await cmd.reply_text(
             START_MSG,
