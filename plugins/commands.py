@@ -364,5 +364,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         caption=f_caption,
                         reply_markup=InlineKeyboardMarkup(buttons)
                         )
+        elif query.data == "kenya":
+            await query.message.edit(text="Source Code : <a href='https://github.com/subinps/Media-Search-bot'>[Bonyeza Hapa]</a>\nUpdate Channel : <a href='https://t.me/subin_works'>XTZ Bots</a> </b>", disable_web_page_preview=True)
+        elif query.data == "tanzania":
+            await query.message.edit(text="Source Code : <a href='https://github.com/subinps/Media-Search-bot'>[Bonyeza Hapa]</a>\nUpdate Channel : <a href='https://t.me/subin_works'>XTZ Bots</a> </b>", disable_web_page_preview=True)
+
 
         
