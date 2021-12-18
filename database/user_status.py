@@ -46,16 +46,7 @@ class Database:
         count = await self.col.count_documents({})
         return count
     
-    def ban_user(self, user_id, ban_duration, ban_reason):
-        ban_status = dict(
-            is_banned=True,
-            ban_duration=ban_duration,
-            banned_on=datetime.date.today().isoformat(),
-            ban_reason=ban_reason
-        )
-        await self.col.update_one({'id': user_id}, {'$set': {'ban_status': ban_status}})
-    
-     async def ban_user(self, user_id, ban_duration, ban_reason):
+    async def ban_user(self, user_id, ban_duration, ban_reason):
         ban_status = dict(
             is_banned=True,
             ban_duration=ban_duration,
