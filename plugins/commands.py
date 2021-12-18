@@ -104,7 +104,7 @@ async def start(bot, cmd):
                             reply_markup=InlineKeyboardMarkup(buttons)
                             )
                 else:
-                    await await bot.send_message(
+                    await bot.send_message(
                         chat_id=cmd.from_user.id,
                         text=f"Samahani username nmeshindwa kukuruhusu kendelea kwa sababu muv au sizon uliochagua n za kulipia\n Tafadhal chagua nchi kuweza kulipia",
                         reply_markup=InlineKeyboardMarkup(
