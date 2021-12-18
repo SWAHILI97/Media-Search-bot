@@ -1,28 +1,4 @@
-
-# (c) @AbirHasan2005
-
 import datetime
-   
-
-   
-
-    async def get_ban_status(self, id):
-        default = dict(
-            is_banned=False,
-            ban_duration=0,
-            banned_on=datetime.date.max.isoformat(),
-            ban_reason=''
-        )
-        user = await self.col.find_one({'id': int(id)})
-        return user.get('ban_status', default)
-
-    async def get_all_banned_users(self):
-        banned_users = self.col.find({'ban_status.is_banned': True})
-        return banned_users
-
-
-db = Database(DATABASE_URI, DATABASE_NAME)
-# https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
 from info import DATABASE_NAME, DATABASE_URI
 
