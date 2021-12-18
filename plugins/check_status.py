@@ -1,6 +1,6 @@
 import datetime
 from info import DATABASE_URI, DATABASE_NAME, CHANNELS
-from handlers.database import Database
+from plugins.user_status import Database
 
 db = Database(DATABASE_URI, DATABASE_NAME)
 
