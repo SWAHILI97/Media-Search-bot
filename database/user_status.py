@@ -33,6 +33,15 @@ class Database:
                 reason="",
             ),
         )
+    async def remove_ban(self, id):
+        ban_status = dict(
+            is_banned=False,
+            ban_duration=0,
+            banned_on=datetime.date.max.isoformat(),
+            ban_reason=''
+        )
+        await self.col.update_one({'id': id}, {'$set': {'ban_status': ban_status}})
+ 
     
     async def add_user(self, id):
         user = self.new_user(id)
