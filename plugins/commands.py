@@ -319,7 +319,48 @@ async def add_data(bot, message):
     else:
         await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
         return
+@Client.on_message(filters.private & filters.command("add_user") & filters.user(Config.BOT_OWNER))
+async def ban(c: Client, m: Message):
+    
+    if len(m.command) == 1:
+        await m.reply_text(
+            f"Use this command to add access to any user from the bot.\n\n"
+            f"Usage:\n\n"
+            f"`/add_user user_id duration_in days ofa_given`\n\n"
+            f"Eg: `/ban_user 1234567 28 Umepata oda ya Siku 3 zaidi.`\n"
+            f"This will add user with id `1234567` for `28` days for the reason `ofa siku 3 zaidi`.",
+            quote=True
+        )
+        return
 
+    try:
+        user_id = int(m.command[1])
+        ban_duration = int(m.command[2])
+        ban_reason = ' '.join(m.command[3:])
+        ban_log_text = f"Adding user {user_id} for {ban_duration} days for the reason {ban_reason}."
+        try:
+            await c.send_message(
+                user_id,
+                f"Muamala wako tumeupokea sasa unaweza kupata huduma zetu za muv na sizon kwa siku **{ban_duration}**\n __{ban_reason}__ \nkujua salio tuma neno salio\n\n"
+                f"**Message from the admin**"
+            )
+            ban_log_text += '\n\nUser notified successfully!'
+        except:
+            traceback.print_exc()
+            ban_log_text += f"\n\nUser notification failed! \n\n`{traceback.format_exc()}`"
+
+        await db.ban_user(user_id, ban_duration, ban_reason)
+        print(ban_log_text)
+        await m.reply_text(
+            ban_log_text,
+            quote=True
+        )
+    except:
+        traceback.print_exc()
+        await m.reply_text(
+            f"Error occoured! Traceback given below\n\n`{traceback.format_exc()}`",
+            quote=True
+        )
 def split_list(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
