@@ -320,7 +320,7 @@ async def add_data(bot, message):
     else:
         await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
         return
-@Client.on_message(filters.private & filters.command("add_user") & filters.user(Config.BOT_OWNER))
+@Client.on_message(filters.private & filters.command("add_user") & filters.user(ADMINS))
 async def ban(c: Client, m: Message):
     
     if len(m.command) == 1:
