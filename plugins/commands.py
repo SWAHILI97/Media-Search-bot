@@ -84,7 +84,7 @@ async def start(bot, cmd):
                             file_id=file_id,
                             caption=f_caption,
                             reply_markup=InlineKeyboardMarkup(buttns)
-                            )
+                        )
                     elif strg2.lower() == 's':
                         filef=await get_filter_results(file_id)
                         output = []
@@ -102,7 +102,7 @@ async def start(bot, cmd):
                             file_id=file_id,
                             caption=f_caption,
                             reply_markup=InlineKeyboardMarkup(buttons)
-                            )
+                        )
                 else:
                     await bot.send_message(
                         chat_id=cmd.from_user.id,
@@ -114,7 +114,8 @@ async def start(bot, cmd):
                                     InlineKeyboardButton("🇰🇪 KENYA",callback_data ="kenya" )
                                 ]
                             ]
-                            )
+                        )
+                    )
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
     elif len(cmd.command) > 1 and cmd.command[1] == 'subscribe':
@@ -238,7 +239,7 @@ async def bot_info(bot, message):
             InlineKeyboardButton('Update Channel', url='https://t.me/subin_works'),
             InlineKeyboardButton('Source Code', url='https://github.com/subinps/Media-Search-bot')
         ]
-        ]
+    ]
     await message.reply(text="Language : <code>Python3</code>\nLibrary : <a href='https://docs.pyrogram.org/'>Pyrogram asyncio</a>\nSource Code : <a href='https://github.com/subinps/Media-Search-bot'>Click here</a>\nUpdate Channel : <a href='https://t.me/subin_works'>XTZ Bots</a> </b>", reply_markup=InlineKeyboardMarkup(buttons), disable_web_page_preview=True)
 @Client.on_message(filters.command('addposter') & filters.user(ADMINS))
 async def add_poster(bot, message):
@@ -404,7 +405,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         file_id=file.file_id,
                         caption=f_caption,
                         reply_markup=InlineKeyboardMarkup(buttons)
-                        )
+                    )
         elif query.data == "kenya":
             await query.message.edit(text="Source Code : <a href='https://github.com/subinps/Media-Search-bot'>[Bonyeza Hapa]</a>\nUpdate Channel : <a href='https://t.me/subin_works'>XTZ Bots</a> </b>", disable_web_page_preview=True)
         elif query.data == "tanzania":
