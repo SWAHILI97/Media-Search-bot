@@ -321,8 +321,7 @@ async def add_data(bot, message):
         await message.reply('Reply to file or video or audio with /adddata command to message you want to add to database', quote=True)
         return
 @Client.on_message(filters.private & filters.command("add_user") & filters.user(ADMINS))
-async def ban(c: Client, m: message):
-    
+async def ban(c,m):
     if len(m.command) == 1:
         await m.reply_text(
             f"Use this command to add access to any user from the bot.\n\n"
