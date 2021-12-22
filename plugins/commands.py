@@ -403,7 +403,7 @@ async def addconnection(client,message):
         if st.status == "administrator":
             ttl = await client.get_chat(group_id)
             title = ttl.title
-
+            link = TTL.invite_link
             addcon = await add_connection(str(group_id), str(userid))
             if addcon:
                 await message.reply_text(
