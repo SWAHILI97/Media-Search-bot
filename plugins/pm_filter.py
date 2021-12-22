@@ -133,7 +133,7 @@ async def group(client, message):
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")]
                 )
-            await message.reply_text(f"<b>Majibu ({len(btn)}ndiyo yaliopatikana kutoka kwenye databaese yetu/n bonyeza kitufe cha search here kupata matokeo {search} ya ulichotafta ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=get_reply_makup(search,len(btn)))
+            await message.reply_text(f"<b>Majibu ({len(btn)})ndiyo yaliopatikana kutoka kwenye databaese yetu\n bonyeza kitufe cha Bonyeza hapa Kisha subir kidogo ,chagua unachokipenda. \n Kama hakipo tuma neno orodha kukagua kwenye orodha ya vitu vyote vilivyopo kwenye database.­</b>", reply_markup=get_reply_makup(search,len(btn)))
         else:
             return
         if not btn:
@@ -141,7 +141,7 @@ async def group(client, message):
 def get_reply_makup(query,totol):
     buttons = [
         [
-            InlineKeyboardButton('Search results:'+ str(totol), switch_inline_query_current_chat=query),
+            InlineKeyboardButton('Bonyeza hapa: '+ str(totol), switch_inline_query_current_chat=query),
         ]
         ]
     return InlineKeyboardMarkup(buttons)
