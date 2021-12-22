@@ -409,7 +409,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             mkv = await client.ask(text = " Samahani sana wateja wetu wa Kenya bado hatuja weka utaratibu mzuri./n hivi karibun tutaweka mfumo mzuri ili muweze kupata huduma zetu", chat_id = query.from_user.id)
         
         elif query.data == "tanzania":
-            mkv = await client.ask(text = " text="VIFURUSHI VYA SWAHILI GROUP \n wiki 1(7 days) ➡️ 2000/= \n wiki 2(14 days) ➡️ 3000/= \n wiki 3(21 days) ➡️ 4000/= \n mwezi 1(30 days) ➡️ 5000/= \n\n Lipa kwenda 0624667219 halopesa:Ukishafanya malipo tuma screenshot ya muamala hapa kwenye hii bot .\n\n Ukimaliza subir kidogo ntakutaarifu endapo msimamiz wangu atamaliza kuhakiki muamala wako..\nPia kila muamala utakao lipia ofa zipo kuongezewa siku(1,2,3---)\n KARIBUN SANA SWAHILI GROUP", chat_id = query.from_user.id)
+            mkv = await client.ask(text="VIFURUSHI VYA SWAHILI GROUP \n wiki 1(7 days) ➡️ 2000/= \n wiki 2(14 days) ➡️ 3000/= \n wiki 3(21 days) ➡️ 4000/= \n mwezi 1(30 days) ➡️ 5000/= \n\n Lipa kwenda 0624667219 halopesa:Ukishafanya malipo tuma screenshot ya muamala hapa kwenye hii bot .\n\n Ukimaliza subir kidogo ntakutaarifu endapo msimamiz wangu atamaliza kuhakiki muamala wako..\nPia kila muamala utakao lipia ofa zipo kuongezewa siku(1,2,3---)\n KARIBUN SANA SWAHILI GROUP", chat_id = query.from_user.id)
         
 
         
