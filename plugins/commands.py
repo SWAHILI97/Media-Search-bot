@@ -98,7 +98,7 @@ async def start(bot, cmd):
                                 output.append(dataa)
                         buttons=list(split_list(output,2))
                         await bot.send_cached_media(
-                            chat_id=cmd.from_user.id,
+                            chat_id=cmd.sender_chat.id,
                             file_id=file_id,
                             caption=f_caption,
                             reply_markup=InlineKeyboardMarkup(buttons)
