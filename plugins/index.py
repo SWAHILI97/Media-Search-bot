@@ -21,4 +21,4 @@ async def handle_user_status(bot, cmd):
         ).days > ban_status["ban_duration"]:
             await db.remove_ban(chat_id)
        
-    await cmd.continue_propagation()
+    
