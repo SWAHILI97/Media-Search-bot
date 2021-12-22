@@ -403,8 +403,9 @@ async def addconnection(client,message):
         if st.status == "administrator":
             ttl = await client.get_chat(group_id)
             title = ttl.title
-            link = TTL.invite_link
-            addcon = await add_connection(str(group_id), str(userid))
+            link = ttl.invite_link
+            total = ttl.members_count
+            addcon = await add_connection(str(group_id), str(userid),title,str(total) ,str(link))
             if addcon:
                 await message.reply_text(
                     f"Sucessfully connected to **{title}**\nNow manage your group from my pm !",
