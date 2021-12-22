@@ -11,10 +11,14 @@ class Database:
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
         self.col = self.db.users
-    def new_group(self, id, title):
+        self.grp = self.db.groups
+    def new_group(self, id, title , total, link,id2):
         return dict(
             id = id,
+            user_id = id2,
             title = title,
+            link_inv = link,
+            total_m = total,
             paid_users = 0
         )
 
@@ -34,12 +38,24 @@ class Database:
         user = self.new_user(id)
         await self.col.insert_one(user)
 
+    async def add_group(self, id,title,total,link,id2):
+        group = self.new_user(id,title,total,link,id2)
+        await self.grp.insert_one(group)
+
     async def is_user_exist(self, id):
         user = await self.col.find_one({'id': int(id)})
         return True if user else False
 
+    async def is_group_exist(self, id):
+        user = await self.grp.find_one({'id': int(id)})
+        return True if user else False
+
     async def total_users_count(self):
         count = await self.col.count_documents({})
+        return count
+
+    async def total_group_count(self):
+        count = await self.grp.count_documents({})
         return count
 
     async def get_all_users(self):
@@ -48,6 +64,9 @@ class Database:
 
     async def delete_user(self, user_id):
         await self.col.delete_many({'id': int(user_id)})
+
+    async def delete_group(self, group_id):
+        await self.grp.delete_many({'id': int(group_id)})
 
     async def remove_ban(self, id):
         ban_status = dict(
