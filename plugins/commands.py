@@ -361,6 +361,73 @@ async def ban(c,m):
             f"Error occoured! Traceback given below\n\n`{traceback.format_exc()}`",
             quote=True
         )
+Client.on_message((filters.private | filters.group) & filters.command('niunge'))
+async def addconnection(client,message):
+    userid = message.from_user.id if message.from_user else None
+    if not userid:
+        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+    chat_type = message.chat.type
+
+    if chat_type == "private":
+        try:
+            cmd, group_id = message.text.split(" ", 1)
+        except:
+            await message.reply_text(
+                "Samahan add hii bot kama admin kwenye group lako kisha tuma command hii <b>/niunge </b>kwenye group lako",
+                quote=True
+            )
+            return
+
+    elif chat_type in ["group", "supergroup"]:
+        group_id = message.chat.id
+
+    try:
+        st = await client.get_chat_member(group_id, userid)
+        if (
+            st.status != "administrator"
+            and st.status != "creator"
+            and str(userid) not in ADMINS
+        ):
+            await message.reply_text("lazima uwe  admin kwenye group hili!", quote=True)
+            return
+    except Exception as e:
+        logger.exception(e)
+        await message.reply_text(
+            "Invalid Group ID!\n\nIf correct, Make sure I'm present in your group!!",
+            quote=True,
+        )
+
+        return
+    try:
+        st = await client.get_chat_member(group_id, "me")
+        if st.status == "administrator":
+            ttl = await client.get_chat(group_id)
+            title = ttl.title
+
+            addcon = await add_connection(str(group_id), str(userid))
+            if addcon:
+                await message.reply_text(
+                    f"Sucessfully connected to **{title}**\nNow manage your group from my pm !",
+                    quote=True,
+                    parse_mode="md"
+                )
+                if chat_type in ["group", "supergroup"]:
+                    await client.send_message(
+                        userid,
+                        f"Connected to **{title}** !",
+                        parse_mode="md"
+                    )
+            else:
+                await message.reply_text(
+                    "You're already connected to this chat!",
+                    quote=True
+                )
+        else:
+            await message.reply_text("Add me as an admin in group", quote=True)
+    except Exception as e:
+        logger.exception(e)
+        await message.reply_text('Some error occured! Try again later.', quote=True)
+        return
 def split_list(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
