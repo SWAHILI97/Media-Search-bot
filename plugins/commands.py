@@ -75,8 +75,11 @@ async def start(bot, cmd):
                     if strg2.lower() == 'm':
                         buttns = [
                                 [
-                                     InlineKeyboardButton("DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}"),
-                                     InlineKeyboardButton("GOOGLE LINK",url= link)
+                                    InlineKeyboardButton("📤 DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}"),
+                          
+                                ],
+                                [
+                                    InlineKeyboardButton("🔗 GOOGLE LINK",url= link)
                                 ]
                             ]
                         await bot.send_cached_media(
@@ -88,7 +91,7 @@ async def start(bot, cmd):
                     elif strg2.lower() == 's':
                         filef=await get_filter_results(file_id)
                         output = []
-                        output.append(InlineKeyboardButton("GOOGLE LINK",url= link))
+                        output.append(InlineKeyboardButton("🔗 GOOGLE LINK",url= link))
                         for x in filef:
                             i= x.file_name.split('.dd#.')[2]
                             a,b= i.split('.d#.')
