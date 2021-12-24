@@ -330,7 +330,7 @@ async def ban(c,m):
             f"Use this command to add access to any user from the bot.\n\n"
             f"Usage:\n\n"
             f"`/add_user user_id duration_in days ofa_given`\n\n"
-            f"Eg: `/ban_user 1234567 28 Umepata ofa ya Siku 3 zaidi.`\n"
+            f"Eg: `/add_user 1234567 28 Umepata ofa ya Siku 3 zaidi.`\n"
             f"This will add user with id `1234567` for `28` days for the reason `ofa siku 3 zaidi`.",
             quote=True
         )
@@ -344,13 +344,13 @@ async def ban(c,m):
         try:
             await c.send_message(
                 user_id,
-                f"Muamala wako tumeupokea sasa unaweza kupata huduma zetu za muv na sizon kwa siku **{ban_duration}**\n __{ban_reason}__ \nkujua salio tuma neno salio\n\n"
+                f"Muamala wako tumeupokea sasa unaweza kupata huduma zetu za muv na sizon \n ** KIFURUSHI CHAKO** \n Ni cha **siku{ban_duration}**\n ofa uliopata ** __{ban_reason}__** \nkujua salio liliobaki tuma neno salio\n\n"
                 f"**Message from the admin**"
             )
             ban_log_text += '\n\nUser notified successfully!'
         except:
             traceback.print_exc()
-            ban_log_text += f"\n\nUser notification failed! \n\n`{traceback.format_exc()}`"
+            ban_log_text += f"\n\nNmeshindwa kumtaarifu tafadhali karibu tena! \n\n`{traceback.format_exc()}`"
 
         await db.ban_user(user_id, ban_duration, ban_reason)
         print(ban_log_text)
