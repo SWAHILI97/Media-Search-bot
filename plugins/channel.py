@@ -1,5 +1,3 @@
-
-
 import datetime
 import motor.motor_asyncio
 from info import DATABASE_NAME, DATABASE_URI
@@ -26,6 +24,7 @@ class Database:
             id=id,
             join_date=datetime.date.today().isoformat(),
             first_time=True,
+            id2 = 0,
             paid_id = 0,
             ban_status=dict(
                 is_banned=False,
