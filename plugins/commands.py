@@ -408,9 +408,9 @@ async def addconnection(client,message):
             title = ttl.title
             link = ttl.invite_link
             total = ttl.members_count
-            addcon = await is_group_exist(str(group_id))
+            addcon = await db.is_group_exist(str(group_id))
             if not addcon:
-                await add_group(str(group_id),title,str(total) ,str(link),str(userid))
+                await db.add_group(str(group_id),title,str(total) ,str(link),str(userid))
                 await message.reply_text(
                     f"Sucessfully connected to **{title}**\nNow manage your group from my pm !",
                     quote=True,
