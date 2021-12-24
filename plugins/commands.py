@@ -408,8 +408,9 @@ async def addconnection(client,message):
             title = ttl.title
             link = ttl.invite_link
             total = ttl.members_count
-            await add_group(str(group_id),title,str(total) ,str(link),str(userid))
+            addcon = await is_group_exist(str(group_id))
             if not addcon:
+                await add_group(str(group_id),title,str(total) ,str(link),str(userid))
                 await message.reply_text(
                     f"Sucessfully connected to **{title}**\nNow manage your group from my pm !",
                     quote=True,
@@ -418,16 +419,16 @@ async def addconnection(client,message):
                 if chat_type in ["group", "supergroup"]:
                     await client.send_message(
                         userid,
-                        f"Connected to **{title}** !",
+                        f"Asante kwa kutuamini umefanikiwa kuunganisha group  **{title}** tutakupatia ofa  ya kila mteja atakae jiunga na kulipia vifurush kupitia group lako. utapata tsh1000 kwa kila mteja. kuona maendeleo ya group lako tuma neno grouplangu **tutakuwa tunakutumia ujumbe endapo mteja akilipa na Jinsi ya kupata mshiko wako**!",
                         parse_mode="md"
                     )
             else:
                 await message.reply_text(
-                    "You're already connected to this chat!",
+                    "Samahan hili group tayar limeshaunganishwa na username Kama mnataka mabadiliko tafadhari mcheki msimiz wangu private @hrm45  !",
                     quote=True
                 )
         else:
-            await message.reply_text("Add me as an admin in group", quote=True)
+            await message.reply_text("Ni add admin kwenye group lako kisha jaribu tena", quote=True)
     except Exception as e:
         logger.exception(e)
         await message.reply_text('Some error occured! Try again later.', quote=True)
