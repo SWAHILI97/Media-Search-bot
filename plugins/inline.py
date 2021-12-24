@@ -97,8 +97,7 @@ async def answer(bot, query):
 def get_reply_markup(query, file_id, nyva):
     buttons = [
         [
-            InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
-            InlineKeyboardButton('Download', url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")
+            InlineKeyboardButton('📤 Download', url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")
         ]
         ]
     return InlineKeyboardMarkup(buttons)
