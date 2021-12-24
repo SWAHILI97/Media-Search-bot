@@ -106,7 +106,7 @@ async def start(bot, cmd):
                 else:
                     await bot.send_message(
                         chat_id=cmd.from_user.id,
-                        text=f"Samahani username nmeshindwa kukuruhusu kendelea kwa sababu muv au sizon uliochagua n za kulipia\n Tafadhal chagua nchi kuweza kulipia",
+                        text=f"Samahani {cmd.from_user.first_name} nmeshindwa kukuruhusu kendelea kwa sababu muv au sizon uliochagua ni za kulipia\n Tafadhal chagua nchi uliopo kuweza kulipia kifurushi",
                         reply_markup=InlineKeyboardMarkup(
                             [
                                 [
