@@ -364,7 +364,7 @@ async def ban(c,m):
             f"Error occoured! Traceback given below\n\n`{traceback.format_exc()}`",
             quote=True
         )
-Client.on_message((filters.private | filters.group) & filters.command('niunge'))
+@Client.on_message((filters.private | filters.group) & filters.command('niunge'))
 async def addconnection(client,message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
