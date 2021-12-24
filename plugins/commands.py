@@ -75,7 +75,7 @@ async def start(bot, cmd):
                     if strg2.lower() == 'm':
                         buttns = [
                                 [
-                                    InlineKeyboardButton("📤 DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}"),
+                                    InlineKeyboardButton("📤 DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}")
                           
                                 ],
                                 [
