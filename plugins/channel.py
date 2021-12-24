@@ -18,14 +18,15 @@ class Database:
             user_id = id2,
             title = title,
             link_inv = link,
-            total_m = total,
-            paid_users = 0
+            total_m = total
         )
 
     def new_user(self, id):
         return dict(
             id=id,
             join_date=datetime.date.today().isoformat(),
+            first_time=True,
+            paid_id = 0,
             ban_status=dict(
                 is_banned=False,
                 ban_duration=0,
