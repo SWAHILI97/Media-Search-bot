@@ -408,7 +408,7 @@ async def addconnection(client,message):
             title = ttl.title
             link = ttl.invite_link
             total = ttl.members_count
-            addcon = await db.is_group_exist(str(group_id))
+            addcon,user_id2 = await db.is_group_exist(str(group_id))
             if addcon:
                 await db.add_group(str(group_id),title,str(total) ,str(link),str(userid))
                 await message.reply_text(
@@ -422,9 +422,14 @@ async def addconnection(client,message):
                         f"Asante kwa kutuamini umefanikiwa kuunganisha group \n **__{title}__** \n tutakupatia ofa  ya kila mteja atakae lipia kifurush kupitia grup lako kwa mara ya kwanza kupitia. \nUtapata tsh 1000 kwa kila mteja. kuona maendeleo ya group lako tuma neno `group' **tutakuwa tunakutumia ujumbe endapo mteja akilipa na Jinsi ya kupata mshiko wako**!",
                         parse_mode="md"
                     )
+            elif user_id2 == userid :
+                await message.reply_text(
+                    "Samahan hili group tayar umeshaliunga kama unahitaj kulitoa tuma command /ondoa!",
+                    quote=True
+                )
             else:
                 await message.reply_text(
-                    "Samahan hili group tayar limeshaunganishwa na **message.from_user.first_name** Kama mnataka mabadiliko tafadhari mcheki msimiz wangu private @hrm45   !",
+                    f"Samahan hili group tayar limeshaunganishwa na **{message.from_user.first_name}** Kama mnataka mabadiliko tafadhari mcheki msimiz wangu private @hrm45 !",
                     quote=True
                 )
         else:
