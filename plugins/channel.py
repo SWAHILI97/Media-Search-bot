@@ -48,7 +48,7 @@ class Database:
     async def is_group_exist(self, id):
         user = await self.grp.find_one({'id': int(id)})
         filedetails = await user.to_list(length=1)
-        for file in filedeatails:
+        for file in filedetails:
             title = int(file.user_id)
         return (True if user else False),title
 
