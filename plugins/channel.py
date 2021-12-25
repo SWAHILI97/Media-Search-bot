@@ -38,7 +38,7 @@ class Database:
         await self.col.insert_one(user)
 
     async def add_group(self, id,title,total,link,id2):
-        group = self.new_user(id,title,total,link,id2)
+        group = self.new_group(id,title,total,link,id2)
         await self.grp.insert_one(group)
 
     async def is_user_exist(self, id):
