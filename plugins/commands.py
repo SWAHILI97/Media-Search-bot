@@ -412,19 +412,19 @@ async def addconnection(client,message):
             if addcon:
                 await db.add_group(str(group_id),title,str(total) ,str(link),str(userid))
                 await message.reply_text(
-                    f"Sucessfully connected to **{title}**\nNow manage your group from my pm !",
+                    f"Sucessfully connected to **{title}**\n Sasa unaweza kuangalia maendeleo ya group lako kwa kituma neno `group` ukiwa private!",
                     quote=True,
                     parse_mode="md"
                 )
                 if chat_type in ["group", "supergroup"]:
                     await client.send_message(
                         userid,
-                        f"Asante kwa kutuamini umefanikiwa kuunganisha group \n **__{title}__** \n tutakupatia ofa  ya kila mteja atakae lipia kifurush kupitia grup lako kwa mara ya kwanza kupitia. \nUtapata tsh 1000 kwa kila mteja. kuona maendeleo ya group lako tuma neno **__mygroup__*" **tutakuwa tunakutumia ujumbe endapo mteja akilipa na Jinsi ya kupata mshiko wako**!",
+                        f"Asante kwa kutuamini umefanikiwa kuunganisha group \n **__{title}__** \n tutakupatia ofa  ya kila mteja atakae lipia kifurush kupitia grup lako kwa mara ya kwanza kupitia. \nUtapata tsh 1000 kwa kila mteja. kuona maendeleo ya group lako tuma neno `group' **tutakuwa tunakutumia ujumbe endapo mteja akilipa na Jinsi ya kupata mshiko wako**!",
                         parse_mode="md"
                     )
             else:
                 await message.reply_text(
-                    "Samahan hili group tayar limeshaunganishwa na **__message.from_user.first_name__** Kama mnataka mabadiliko tafadhari mcheki msimiz wangu private @hrm45   !",
+                    "Samahan hili group tayar limeshaunganishwa na **message.from_user.first_name** Kama mnataka mabadiliko tafadhari mcheki msimiz wangu private @hrm45   !",
                     quote=True
                 )
         else:
