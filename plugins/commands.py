@@ -368,7 +368,7 @@ async def ban(c,m):
 async def addconnection(client,message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
-        return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
+        return await message.reply(f"Samahan wewe n anonymous(bila kujulikana) admin tafadhali nenda kweny group lako edit **admin permission** kisha disable jaribu tend kituma /niumge.Au kama unatak uendelee kuwa anonymous copy huu  ujumbe **__/connect {message.chat.id}__** kisha kautume private.Bila kumbuka bot haifany kaz kwa anonymous admin hutoweza kusearch labda inline")
     chat_type = message.chat.type
 
     if chat_type == "private":
@@ -409,7 +409,7 @@ async def addconnection(client,message):
             link = ttl.invite_link
             total = ttl.members_count
             addcon = await db.is_group_exist(str(group_id))
-            if not addcon:
+            if addcon:
                 await db.add_group(str(group_id),title,str(total) ,str(link),str(userid))
                 await message.reply_text(
                     f"Sucessfully connected to **{title}**\nNow manage your group from my pm !",
@@ -419,19 +419,19 @@ async def addconnection(client,message):
                 if chat_type in ["group", "supergroup"]:
                     await client.send_message(
                         userid,
-                        f"Asante kwa kutuamini umefanikiwa kuunganisha group  **{title}** tutakupatia ofa  ya kila mteja atakae jiunga na kulipia vifurush kupitia group lako. utapata tsh1000 kwa kila mteja. kuona maendeleo ya group lako tuma neno grouplangu **tutakuwa tunakutumia ujumbe endapo mteja akilipa na Jinsi ya kupata mshiko wako**!",
+                        f"Asante kwa kutuamini umefanikiwa kuunganisha group \n **__{title}__** \n tutakupatia ofa  ya kila mteja atakae lipia kifurush kupitia grup lako kwa mara ya kwanza kupitia. \nUtapata tsh 1000 kwa kila mteja. kuona maendeleo ya group lako tuma neno **__mygroup__*" **tutakuwa tunakutumia ujumbe endapo mteja akilipa na Jinsi ya kupata mshiko wako**!",
                         parse_mode="md"
                     )
             else:
                 await message.reply_text(
-                    "Samahan hili group tayar limeshaunganishwa na username Kama mnataka mabadiliko tafadhari mcheki msimiz wangu private @hrm45  !",
+                    "Samahan hili group tayar limeshaunganishwa na **__message.from_user.first_name__** Kama mnataka mabadiliko tafadhari mcheki msimiz wangu private @hrm45   !",
                     quote=True
                 )
         else:
             await message.reply_text("Ni add admin kwenye group lako kisha jaribu tena", quote=True)
     except Exception as e:
         logger.exception(e)
-        await message.reply_text('Some error occured! Try again later.', quote=True)
+        await message.reply_text('Kuna tatizo tafadhali jaribu badae!!!.', quote=True)
         return
 def split_list(l, n):
     for i in range(0, len(l), n):
