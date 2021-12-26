@@ -249,7 +249,7 @@ async def add_poster(bot, message):
     """Media Handler"""
     reply = message.reply_to_message
     if reply and reply.photo:
-        media = getattr(reply, photo, None)
+        media = getattr(reply,"photo", None)
         await message.reply(media, quote=True)
      
     elif reply and reply.media:
