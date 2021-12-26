@@ -368,7 +368,7 @@ async def ban(c,m):
 async def addconnection(client,message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
-        return await message.reply(f"Samahan wewe n anonymous(bila kujulikana) admin tafadhali nenda kweny group lako edit **admin permission** kisha disable jaribu tend kituma /niumge.Au kama unatak uendelee kuwa anonymous copy huu  ujumbe **__/connect {message.chat.id}__** kisha kautume private.Bila kumbuka bot haifany kaz kwa anonymous admin hutoweza kusearch labda inline")
+        return await message.reply(f"Samahan wewe ni anonymous(bila kujulikana) admin tafadhali nenda kweny group lako edit **admin permission** remain anonymouse kisha disable jaribu tena kituma /niumge.\nAu kama unatak uendelee kuwa anonymous admin copy huu  ujumbe **__/niunge {message.chat.id}__** kisha kautume private./n Kumbuka bot haifany kaz kwa anonymous admin hutoweza kusearch/features nyingi huwezi tumia labda inline mode")
     chat_type = message.chat.type
 
     if chat_type == "private":
@@ -412,7 +412,7 @@ async def addconnection(client,message):
             if not addcon:
                 await db.add_group(str(group_id),title,str(total) ,str(link),str(userid))
                 await message.reply_text(
-                    f"Sucessfully connected to **{title}**\n Sasa unaweza kuangalia maendeleo ya group lako kwa kituma neno `group` ukiwa private!",
+                    f"Sucessfully connected to **{title}**\n Sasa unaweza kuangalia maendeleo ya group lako kwa kutuma neno `group` ukiwa private!",
                     quote=True,
                     parse_mode="md"
                 )
@@ -424,12 +424,12 @@ async def addconnection(client,message):
                     )
             elif user_id2 == userid :
                 await message.reply_text(
-                    "Samahan hili group tayar umeshaliunga kama unahitaj kulitoa tuma command /ondoa!",
+                    "Samahan hili group tayar umeshaliunga kama unahitaj kulitoa tuma command /ondoa",
                     quote=True
                 )
             else:
                 await message.reply_text(
-                    f"Samahan hili group tayar limeshaunganishwa na **{message.from_user.first_name}** Kama mnataka mabadiliko tafadhari mcheki msimiz wangu private @hrm45 !",
+                    f"Samahan hili group tayar limeshaunganishwa na admin **{message.from_user.first_name}** Kama mnataka mabadiliko tafadhari mcheki msimiz wangu inbox @hrm45 ili awabadilishie!",
                     quote=True
                 )
         else:
