@@ -2,6 +2,7 @@ import re
 import base64
 import logging
 from struct import pack
+from telegraph import upload_file
 from pyrogram.errors import UserNotParticipant
 from pyrogram.file_id import FileId
 from pymongo.errors import DuplicateKeyError
@@ -266,6 +267,25 @@ def unpack_new_file_id(new_file_id):
     file_ref = encode_file_ref(decoded.file_reference)
     return file_id, file_ref
 
+async def upload_photo(message):
+    msg = await message.reply_text("<code>Please wait..</code>")
+    _T_LIMIT = 5242880
+    if not (bool(message.photo) and bool(message.photo.file_size <= _T_LIMIT)):
+        await msg.edit("<i>Sorry this Photo is not supported..</i>")
+        return False
+    dl_loc = await message.download()
+    try:
+        response = upload_file(dl_loc)
+    except Exception as t_e:
+        await msg.edit_text(t_e)
+        link = False
+    else:
+        link = f'https://telegra.ph{response[0]}'
+        await msg.delete()
+    finally:
+        os.remove(dl_loc)
+        
+    return  link
 
 def get_size(size):
     """Get size in readable format"""
