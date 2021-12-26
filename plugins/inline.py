@@ -54,15 +54,25 @@ async def answer(bot, query):
         if f_caption is None:
             f_caption = f"{title}"
         if id2=='x':
-            reply_markup=get_reply_markup(string,file.file_id,nyva)
-            results.append(
-                InlineQueryResultCachedDocument(
-                    title=title,
-                    file_id=file.file_id,
-                    caption=f_caption,
-                    description=f'{descp}',
-                    reply_markup=reply_markup))
-
+            if file.file_type != "photo":
+                reply_markup=get_reply_markup(string,file.file_id,nyva)
+                results.append(
+                    InlineQueryResultCachedDocument(
+                        title=title,
+                        file_id=file.file_id,
+                        caption=f_caption,
+                        description=f'{descp}',
+                        reply_markup=reply_markup))
+            else:
+                reply_markup=get_reply_markup(string,file.file_id,nyva)
+                results.append(
+                    InlineQueryResultCachedPhoto(
+                        id=uuid4(),
+                        title=title,
+                        photo_file_id=file.file_id,
+                        caption=f_caption,
+                        description= descp,
+                        reply_markup=reply_mark_up))      
     if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
         if string:
