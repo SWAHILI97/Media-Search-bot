@@ -48,11 +48,9 @@ class Database:
     async def is_group_exist(self, id):
         title = 2
         user = await self.grp.find_one({'id': id})
-        if user:
-            filedetails = await user.to_list(length=1)
-            for file in filedetails:
-                title = int(file.user_id)
-        return (True if user else False),title
+        if not user:
+            return False,title
+        return (True if user else False),user.get('user_id', title)
 
     async def total_users_count(self):
         count = await self.col.count_documents({})
