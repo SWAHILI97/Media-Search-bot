@@ -409,7 +409,7 @@ async def addconnection(client,message):
             link = ttl.invite_link
             total = ttl.members_count
             addcon,user_id2 = await db.is_group_exist(str(group_id))
-            if addcon:
+            if not addcon:
                 await db.add_group(str(group_id),title,str(total) ,str(link),str(userid))
                 await message.reply_text(
                     f"Sucessfully connected to **{title}**\n Sasa unaweza kuangalia maendeleo ya group lako kwa kituma neno `group` ukiwa private!",
