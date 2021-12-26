@@ -248,7 +248,11 @@ async def bot_info(bot, message):
 async def add_poster(bot, message):
     """Media Handler"""
     reply = message.reply_to_message
-    if reply and reply.media:
+    if reply and reply.photo:
+        media = getattr(reply, photo, None)
+        await message.reply(media, quote=True)
+     
+    elif reply and reply.media:
         msg = await message.reply("Processing...⏳", quote=True)
     else:
         await message.reply('Reply to file or video or audio with /addposter command to message you want to add to database', quote=True)
