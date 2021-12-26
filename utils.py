@@ -74,7 +74,7 @@ async def save_file(media):
     # TODO: Find better way to get same file_id for same media to avoid duplicates
     file_ref="bandolako2bot"
     file_id = media.file_id
-    if media.file_type != "photo"
+    if media.file_type != "photo":
         file_id, file_ref = unpack_new_file_id(media.file_id)
 
     try:
