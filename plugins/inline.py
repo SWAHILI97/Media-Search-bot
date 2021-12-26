@@ -1,6 +1,6 @@
 import logging
 from pyrogram import Client, emoji, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument,InlineQueryResultCachedPhoto
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument,InlineQueryResultPhoto
 
 from utils import get_search_results, is_subscribed, get_size
 from info import CACHE_TIME, AUTH_USERS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
@@ -65,12 +65,11 @@ async def answer(bot, query):
                         reply_markup=reply_markup))
             else:
                 reply_markup=get_reply_markup(string,file.file_id,nyva)
-                results.append(
-                    InlineQueryResultCachedPhoto(
+                results.append(InlineQueryResultPhoto(
+                        photo_url = file.file_id,
                         title=title,
-                        file_id=file.file_id,
-                        caption=f_caption,
                         description= descp,
+                        caption=f_caption,
                         reply_markup=reply_mark_up))      
     if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
