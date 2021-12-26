@@ -248,9 +248,10 @@ async def bot_info(bot, message):
 async def add_poster(bot, message):
     """Media Handler"""
     reply = message.reply_to_message
-    if reply and reply.photo:
-        media = getattr(reply,"photo", None)
+    if reply and reply.video:
+        media = getattr(reply,"video", None)
         await message.reply(media, quote=True)
+        return
      
     elif reply and reply.media:
         msg = await message.reply("Processing...⏳", quote=True)
