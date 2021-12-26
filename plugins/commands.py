@@ -4,7 +4,7 @@ from plugins.channel import db
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
-from utils import Media, get_file_details, get_size, save_file, get_filter_results
+from utils import Media, get_file_details, get_size, save_file, get_filter_results,upload_photo
 from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 
@@ -259,6 +259,7 @@ async def add_poster(bot, message):
             testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
             media.mime_type = "sfghhd"
             media.file_name = testi
+            media.file_id = await upload_photo(reply)
             media.file_type = file_type
             media.caption = reply.caption
             break
