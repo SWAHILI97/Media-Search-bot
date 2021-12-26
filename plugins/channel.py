@@ -50,7 +50,7 @@ class Database:
         user = await self.grp.find_one({'id': id})
         if not user:
             return False,title
-        return (True if user else False),user.get('user_id', title)
+        return (True if user else False),int(user(["user_id"]))
 
     async def total_users_count(self):
         count = await self.col.count_documents({})
