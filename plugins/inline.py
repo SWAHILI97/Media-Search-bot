@@ -67,9 +67,8 @@ async def answer(bot, query):
                 reply_markup=get_reply_markup(string,file.file_id,nyva)
                 results.append(
                     InlineQueryResultCachedPhoto(
-                        id=uuid4(),
                         title=title,
-                        photo_file_id=file.file_id,
+                        file_id=file.file_id,
                         caption=f_caption,
                         description= descp,
                         reply_markup=reply_mark_up))      
