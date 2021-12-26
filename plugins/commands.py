@@ -477,19 +477,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                             f_caption=f_caption
                     if f_caption is None:
                         f_caption = f"{files.file_name}"
-                    buttons = [
-                        [
-                            InlineKeyboardButton('More Bots', url='https://t.me/subin_works/122'),
-                            InlineKeyboardButton('Update Channel', url='https://t.me/subin_works')
-                        ]
-                        ]
-                
                     await query.answer()
                     await client.send_cached_media(
                         chat_id=query.from_user.id,
                         file_id=file.file_id,
-                        caption=f_caption,
-                        reply_markup=InlineKeyboardMarkup(buttons)
+                        caption=f_caption
                     )
         elif query.data == "kenya":
             mkv = await client.ask(text = " Samahani sana wateja wetu wa Kenya bado hatuja weka utaratibu mzuri.\n  hivi karibun tutaweka mfumo mzuri ili muweze kupata huduma zetu", chat_id = query.from_user.id)
