@@ -220,7 +220,7 @@ async def delete(bot, message):
             break
     else:
         await msg.edit('This is not supported file format')
-    
+        return
     files = await get_filter_results(query=media.file_name)
     if files:
         for file in files: 
@@ -248,19 +248,23 @@ async def bot_info(bot, message):
 async def add_poster(bot, message):
     """Media Handler"""
     reply = message.reply_to_message
-    if reply and reply.video:
-        media = getattr(reply,"video", None)
-        await message.reply(media, quote=True)
-        return
-     
-    elif reply and reply.media:
+    if reply and reply.media:
         msg = await message.reply("Processing...⏳", quote=True)
     else:
         await message.reply('Reply to file or video or audio with /addposter command to message you want to add to database', quote=True)
         return
-    for file_type in ("document", "video", "audio"):
+    for file_type in ("document", "video", "audio" ,"photo"):
         media = getattr(reply, file_type, None)
-        if media is not None:
+        if media is not None and reply.photo:
+            testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
+            media.mime_type = "sfghhd"
+            media.file_name = testi
+            media.file_size = reply.photo[reply.photo.length-1].file_size
+            media.file_id = reply.photo[reply.photo.length-1].file_id
+            media.file_type = file_type
+            media.caption = reply.caption
+            break
+        elif media is not None :
             media.file_type = file_type
             media.caption = reply.caption
             break
