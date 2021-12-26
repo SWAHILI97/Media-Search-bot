@@ -1,6 +1,6 @@
 import logging
 from pyrogram import Client, emoji, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument,InlineQueryResultCachedPhoto
 
 from utils import get_search_results, is_subscribed, get_size
 from info import CACHE_TIME, AUTH_USERS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
