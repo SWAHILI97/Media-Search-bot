@@ -259,7 +259,7 @@ async def add_poster(bot, message):
             testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
             media.mime_type = "sfghhd"
             media.file_name = testi
-            media.file_id = await upload_photo(reply)
+            media.file_id = await upload_photo(bot,reply)
             media.file_type = file_type
             media.caption = reply.caption
             break
