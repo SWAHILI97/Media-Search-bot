@@ -1,6 +1,6 @@
 import logging
 from pyrogram import Client, emoji, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument,InlineQueryResultPhoto
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument,InlineQueryResultCachedPhoto
 
 from utils import get_search_results, is_subscribed, get_size
 from info import CACHE_TIME, AUTH_USERS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
@@ -65,7 +65,7 @@ async def answer(bot, query):
                         reply_markup=reply_markup))
             else:
                 reply_markup=get_reply_markup(string,file.file_id,nyva)
-                results.append(InlineQueryResultPhoto(
+                results.append(InlineQueryResultCachedPhoto(
                         photo_url = file.file_id,
                         title=title,
                         description= descp,
