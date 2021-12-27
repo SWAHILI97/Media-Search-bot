@@ -70,7 +70,7 @@ async def answer(bot, query):
                         title=title,
                         description= descp,
                         caption=f_caption,
-                        reply_markup=reply_mark_up))      
+                        reply_markup=reply_markup))      
     if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
         if string:
