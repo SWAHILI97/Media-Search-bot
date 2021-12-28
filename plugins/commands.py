@@ -258,7 +258,7 @@ async def add_poster(bot, message):
         if media is not None and reply.photo:
             testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
             media.mime_type = "sfghhd"
-            media.file_name = testi
+            media.file_name = testi.text
             media.file_id = await upload_photo(bot,reply)
             media.file_type = file_type
             media.caption = reply.caption
