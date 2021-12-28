@@ -260,7 +260,7 @@ async def add_poster(bot, message):
             media.file_name = testi.text
             media.file_id , media.mime_type = await upload_photo(bot,reply)
             media.file_type = file_type
-            media.caption = f'{reply.caption}\n @Bandolako2bot \n [IMAGE URL]({media.file_I'd})'
+            media.caption = f'{reply.caption}\n @Bandolako2bot \n [IMAGE URL]({media.file_id})'
             break
         elif media is not None :
             media.file_type = file_type
