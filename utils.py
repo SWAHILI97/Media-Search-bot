@@ -269,7 +269,7 @@ def unpack_new_file_id(new_file_id):
 
 async def upload_photo(client, message):
   msg = await message.reply_text("`Tʀʏɪɴɢ Tᴏ Dᴏᴡɴʟᴏᴀᴅ`")
-  userid = f'{message.photo.file_id}{message.photo.file_size}'
+  userid = f'{message.photo.file_id[-1]}{message.photo.file_size}'
   img_path = (f"./DOWNLOADS/{userid}.jpg")
   img_path = await client.download_media(message=message, file_name=img_path)
   await msg.edit_text("`Tʀʏɪɴɢ Tᴏ Uᴘʟᴏᴀᴅ.....`")
