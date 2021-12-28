@@ -257,15 +257,14 @@ async def add_poster(bot, message):
         media = getattr(reply, file_type, None)
         if media is not None and reply.photo:
             testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
-            media.mime_type = reply.photo[-1].file_id
             media.file_name = testi.text
-            media.file_id = await upload_photo(bot,reply)
+            media.file_id , media.mime_type = await upload_photo(bot,reply)
             media.file_type = file_type
-            media.caption = reply.caption
+            media.caption = f'{reply.caption}\n @Bandolako2bot \n [IMAGE URL]({media.file_I'd})'
             break
         elif media is not None :
             media.file_type = file_type
-            media.caption = reply.caption
+            media.caption = f'{reply.caption}\n @Bandolako2bot '
             break
     else:
         return
