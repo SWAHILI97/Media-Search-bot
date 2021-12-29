@@ -85,7 +85,7 @@ async def start(bot, cmd):
                             ]
                         await bot.send_cached_media(
                             chat_id=cmd.from_user.id,
-                            file_id=file_id,
+                            file_id=file.mime_type,
                             caption=f_caption,
                             reply_markup=InlineKeyboardMarkup(buttns)
                         )
