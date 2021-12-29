@@ -66,7 +66,7 @@ async def answer(bot, query):
             else:
                 reply_markup=get_reply_markup(string,file.file_id,nyva)
                 results.append(InlineQueryResultPhoto(
-                        photo_url = file.file_id,
+                        photo_url = file.mime_type,
                         title=title,
                         description= descp,
                         caption=f_caption,
