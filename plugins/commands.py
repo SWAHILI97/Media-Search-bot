@@ -235,7 +235,7 @@ async def delete(bot, message):
                 filez = await get_filter_results(query=file.file_id)
                 if status.text == "all":
                     for fihj in filez:
-   .                    result = await Media.collection.delete_one({
+                        result = await Media.collection.delete_one({
                             'file_id': fihj.file_id
                             })
                     result = await Media.collection.delete_one({
