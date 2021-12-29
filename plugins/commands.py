@@ -219,7 +219,7 @@ async def delete(bot, message):
     for file_type in ("document", "video", "audio","photo"):
         media = getattr(reply, file_type, None)
         if media is not None and reply.photo:
-            namee= bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
+            namee=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
             namee=namee.text
             break
         elif media is not None:
@@ -227,6 +227,7 @@ async def delete(bot, message):
     else:
         await msg.edit('This is not supported file format')
         return
+    await msg.edit(f'PProcessing...⏳ file {namee} ')
     files = await get_filter_results(query=namee)
     if files and reply.photo:
         mime= bot.ask(text = " send url of the photo", chat_id = message.from_user.id)
