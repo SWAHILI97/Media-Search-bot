@@ -7,6 +7,7 @@ from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
 from utils import Media, get_file_details, get_size, save_file, get_filter_results,upload_photo
 from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
+BUTTONS={}
 
 @Client.on_message(filters.command("start"))
 async def start(bot, cmd):
@@ -114,23 +115,24 @@ async def start(bot, cmd):
                             buttons.append(
                                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
                             )
+                            await bot.send_photo(
+                                chat_id=cmd.from_user.id,
+                                photo=files.mime_type,
+                                caption=f_caption,
+                                reply_markup=InlineKeyboardMarkup(buttons)
+                            )
+                            return
                         if BUTTON:
                             buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
+                        data = BUTTONS[keyword]
+                        buttons = data['buttons'][0].copy()
+                        buttons.append(
+                            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
+                        )    
+                        buttons.append(
+                            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+                        )
                         
-            
-
-        data = BUTTONS[keyword]
-        buttons = data['buttons'][0].copy()
-
-        buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
-        )    
-        buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-        )
-        if BUTTON:
-            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-      
                         await bot.send_photo(
                             chat_id=cmd.from_user.id,
                             photo=files.mime_type,
@@ -592,7 +594,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
                 return
-
+        elif query.data == "pages":
+            await query.answer()
+        elif query.data == "close":
+            try:
+                await query.message.reply_to_message.delete()
+                await query.message.delete()
+            except:
+                await query.message.delete()
+                
 
         elif query.data.startswith("back"):
             ident, index, keyword = query.data.split("_")
