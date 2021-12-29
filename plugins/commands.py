@@ -227,7 +227,7 @@ async def delete(bot, message):
     else:
         await msg.edit('This is not supported file format')
         return
-    await name.edit(f'Processing...⏳ file {namee} ')
+    await msg.edit(f'Processing...⏳ file {namee} ')
     files = await get_filter_results(query=namee)
     if files and reply.photo:
         mime=await bot.ask(text = " send url of the photo", chat_id = message.from_user.id)
