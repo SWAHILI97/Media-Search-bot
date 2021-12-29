@@ -73,6 +73,7 @@ async def start(bot, cmd):
                 ban_status = await db.get_ban_status(cmd.from_user.id)
                 if strgs.lower() == 'f' or ban_status["is_banned"]:
                     if strg2.lower() == 'm':
+                        f_caption=f'🎬title \n🌟@Bandolako2bot \n\n ***bonyeza download kuzidownload hapa telegram au google kudownload kupitia google drive***\n *usisahau mda wowote kuweka email kwa kutuma neno wekaemail kisha email yako mfano wekaemail hramamohamed@gmail.com*'
                         buttns = [
                                 [
                                     InlineKeyboardButton("📤 DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}")
@@ -90,6 +91,7 @@ async def start(bot, cmd):
                         )
                     elif strg2.lower() == 's':
                         filef=await get_filter_results(file_id)
+                        f_caption =f'🎬title \n🌟@Bandolako2bot \n\n ***Bonyeza google link kudownload kupitia google drive na bonyeza season episode range(s01()1-n) kudownload episode husika hapa telegram tunaanza na latest episodes kurud mpaka ya mwanzo*** \n\n *kama hujaunga email tuma neno wekaemail kisha email yako mfano wekaemail hramamohamed@gmail.com*'
                         output = []
                         output.append(InlineKeyboardButton("🔗 GOOGLE LINK",url= link))
                         for x in filef:
