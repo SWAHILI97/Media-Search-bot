@@ -230,11 +230,11 @@ async def delete(bot, message):
     await msg.edit(f'PProcessing...⏳ file {namee} ')
     files = await get_filter_results(query=namee)
     if files and reply.photo:
-        mime= bot.ask(text = " send url of the photo", chat_id = message.from_user.id)
+        mime=await bot.ask(text = " send url of the photo", chat_id = message.from_user.id)
         mime=mime.text
         for file in files:
             if mime==file.mime_type:
-                status =  bot.ask(text = "send all to delete all files or send the video you want to delete on this movie/series ", chat_id = message.from_user.id)
+                status =await  bot.ask(text = "send all to delete all files or send the video you want to delete on this movie/series ", chat_id = message.from_user.id)
                 filez = await get_filter_results(query=file.file_id)
                 if status.text == "all":
                     for fihj in filez:
@@ -324,7 +324,7 @@ async def add_data(bot, message):
             mime = await bot.ask(text = " send photo link/URL for verifying", chat_id = message.from_user.id)
             for file in files: 
                 title = file.mime_type
-                if title==mime:
+                if title==mime.text:
                     pres = 'present'
                     break  
         else:
