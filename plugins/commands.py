@@ -314,11 +314,7 @@ async def add_data(bot, message):
     pres = 'absent'
     if reply and reply.photo:
         msg = await reply.reply("Processing...⏳", quote=True)
-        for file_type in ("photo"):
-            mediaphoto = getattr(reply, file_type, None)
-            if mediaphoto is not None:
-                name= await bot.ask(text = " send file name of the photo", chat_id = message.from_user.id)
-                break
+        name= await bot.ask(text = " send file name of the photo", chat_id = message.from_user.id)
         files = await get_filter_results(query=name)
         if files:
             mime = await bot.ask(text = " send photo link/URL for verifying", chat_id = message.from_user.id)
