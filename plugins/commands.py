@@ -214,27 +214,51 @@ async def delete(bot, message):
         await message.reply('Reply to file with /delete which you want to delete', quote=True)
         return
 
-    for file_type in ("document", "video", "audio"):
+    for file_type in ("document", "video", "audio","photo"):
         media = getattr(reply, file_type, None)
         if media is not None:
             break
     else:
         await msg.edit('This is not supported file format')
         return
-    files = await get_filter_results(query=media.file_name)
-    if files:
+    if reply photo:
+        name= bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
+    else:
+        name=media.file_name
+    files = await get_filter_results(query=name)
+    if files and reply.photo:
+        for file in files:
+            if mime==file.mime_type:
+                status =  bot.ask(text = "send all to delete all files or send the video you want to delete on this movie/series ", chat_id = message.from_user.id)
+                filez = await get_filter_results(query=file.file_id)
+                if status.text == "all":
+                    for filed in filez:
+   .                    result = await Media.collection.delete_one({
+                            'file_id': filed.file_id
+                            })
+                    result = await Media.collection.delete_one({
+                        'mime_type': file.mime_type
+                        })
+                elif not (status.photo | status.text):
+                    for file_type in ("document", "video", "audio","photo"):
+                        medi = getattr(status, file_type, None)
+                        if medi is not None:
+                            break
+                    result = await Media.collection.delete_one({
+                        'file_size': medi.file_size,
+                        'mime_type': medi.mime_type
+                        })
+    elif files:
         for file in files: 
-            title = file.file_name.split('.dd#.')[1]
-            if title==media.file_name:
+            if file.file_size==media.file_size and file.mime_type == media.mime_type:
                 result = await Media.collection.delete_one({
-                    'file_name': file.file_name,
                     'file_size': media.file_size,
                     'mime_type': media.mime_type
                     })   
-        if result.deleted_count:
-            await msg.edit('File is successfully deleted from database')
-        else:
-            await msg.edit('File not found in database')
+    if result.deleted_count:
+        await msg.edit('File is successfully deleted from database')
+    else:
+        await msg.edit('File not found in database')
 @Client.on_message(filters.command('about'))
 async def bot_info(bot, message):
     buttons = [
@@ -258,22 +282,26 @@ async def add_poster(bot, message):
         if media is not None and reply.photo:
             testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
             media.file_name = testi.text
+            resv = ".dd#.x"
+            mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
+            access = await bot.ask(text = " send access and type eg m.t that is movie and access true or s.t series true", chat_id = message.from_user.id)
+            link = await bot.ask(text = " send link", chat_id = message.from_user.id)
+            media.file_name = f'{mk.text}.dd#.{media.file_name}{resv}.dd#.{access.text}.dd#.{link.text}'
             media.file_id , media.mime_type = await upload_photo(bot,reply)
             media.file_type = file_type
-            media.caption = f'{reply.caption.html}\n @Bandolako2bot \n [IMAGE URL]({media.file_id})'if reply.caption else None
+            media.caption = f'{reply.caption.html}\n @Bandolako2bot \n [IMAGE URL]({media.mime_type})'if reply.caption else None
             break
         elif media is not None :
+            testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
+            media.file_name = testi.text
+            resv = ".dd#.x"
+            mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
+            media.file_name = f'{mk.text}.dd#.{media.file_name}{resv}'
             media.file_type = file_type
             media.caption = f'{reply.caption}\n @Bandolako2bot 'if reply.caption else None
             break
     else:
         return
-    
-    resv = ".dd#.x"
-    mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
-    access = await bot.ask(text = " send access and type eg m.t that is movie and access true or s.t series true", chat_id = message.from_user.id)
-    link = await bot.ask(text = " send link", chat_id = message.from_user.id)
-    media.file_name = f'{mk.text}.dd#.{media.file_name}{resv}.dd#.{access.text}.dd#.{link.text}'
     replly,dta_id = await save_file(media)
     await mk.reply(f'{mk.text}\n caption {media.caption}\n type {media.file_type} \n {replly} with id {dta_id}')
    
@@ -282,17 +310,19 @@ async def add_data(bot, message):
     """Media Handler"""
     reply = message.reply_to_message
     pres = 'absent'
-    if reply and reply.media:
+    if reply and reply.photo:
         msg = await reply.reply("Processing...⏳", quote=True)
-        for file_type in ("document", "video", "audio"):
-            media = getattr(reply, file_type, None)
-            if media is not None:
+        for file_type in ("photo"):
+            mediaphoto = getattr(reply, file_type, None)
+            if mediaphoto is not None:
+                name= await bot.ask(text = " send file name of the photo", chat_id = message.from_user.id)
                 break
-        files = await get_filter_results(query=media.file_name)
+        files = await get_filter_results(query=name)
         if files:
+            mime = await bot.ask(text = " send photo link/URL for verifying", chat_id = message.from_user.id)
             for file in files: 
-                title = file.file_name.split('.dd#.')[1]
-                if title==media.file_name and file.file_size == media.file_size and file.mime_type == media.mime_type:
+                title = file.mime_type
+                if title==mime:
                     pres = 'present'
                     break  
         else:
@@ -303,7 +333,7 @@ async def add_data(bot, message):
         if statusi == 'x' and pres == 'present':
             dta = 'stat'
             dtb = 'stop'
-            mkv = await bot.ask(text = " send batch name season start with last ep separate by hash e.g 10#(S01EP(1-10)) or else m#movie", chat_id = message.from_user.id)
+            mkv = await bot.ask(text = " send batch name season start with last ep separate by hash e.g 10#S01EP(1-10) or else m#movie", chat_id = message.from_user.id)
             mkv1,mkv2 = mkv.text.split('#')
             while dta!='stop':
                 mk=await bot.ask(text = " send media or document or audio else send stop", chat_id = message.from_user.id)
@@ -316,7 +346,8 @@ async def add_data(bot, message):
                             break
                     resv = f'{dcm_id}'
                     mkg = 'data.dd#.'
-                    media.file_name = f'{mkg}{media.file_name}.dd#.H{mkv1}@.{resv}.d#.{mkv2}'
+                    media.caption = f'{media.caption}\n @Bandolako2bot 'if reply.caption else None
+                    media.file_name = f'{mkg}bnd2bot.dd#.H{mkv1}@.{resv}.d#.{mkv2}'
                     a,b = await save_file(media)
                     await mkv.reply(f'{mkg}\n caption {media.caption}\n type {media.file_type} \n {a} to database')
 
