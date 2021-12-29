@@ -133,6 +133,8 @@ async def start(bot, cmd):
                             [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
                         )
                         
+                        if BUTTON:
+                            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
                         await bot.send_photo(
                             chat_id=cmd.from_user.id,
                             photo=files.mime_type,
