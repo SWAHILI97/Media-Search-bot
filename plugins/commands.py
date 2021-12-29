@@ -219,15 +219,15 @@ async def delete(bot, message):
     for file_type in ("document", "video", "audio","photo"):
         media = getattr(reply, file_type, None)
         if media is not None and reply.photo:
-            name= bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
-            name=name.text
+            namee= bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
+            namee=namee.text
             break
         elif media is not None:
-            name=media.file_name
+            namee=media.file_name
     else:
         await msg.edit('This is not supported file format')
         return
-    files = await get_filter_results(query=name)
+    files = await get_filter_results(query=namee)
     if files and reply.photo:
         mime= bot.ask(text = " send url of the photo", chat_id = message.from_user.id)
         mime=mime.text
@@ -316,9 +316,9 @@ async def add_data(bot, message):
     pres = 'absent'
     if reply and reply.photo:
         msg = await reply.reply("Processing...⏳", quote=True)
-        name= await bot.ask(text = " send file name of the photo", chat_id = message.from_user.id)
-        name=name.text
-        files = await get_filter_results(query=name)
+        namee= await bot.ask(text = " send file name of the photo", chat_id = message.from_user.id)
+        namee=namee.text
+        files = await get_filter_results(query=namee)
         if files:
             mime = await bot.ask(text = " send photo link/URL for verifying", chat_id = message.from_user.id)
             for file in files: 
