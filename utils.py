@@ -282,7 +282,7 @@ async def upload_photo(client, message):
     await msg.edit_text(f"https://telegra.ph{tlink[0]}")     
     os.remove(img_path)
   link2= f"https://telegra.ph{tlink[0]}"
-  return link2,id2
+  return id2,link2
 
 def get_size(size):
     """Get size in readable format"""
