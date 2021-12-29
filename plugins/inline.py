@@ -61,8 +61,7 @@ async def answer(bot, query):
                         title=title,
                         file_id=file.file_id,
                         caption=f_caption,
-                        description=f'{descp}',
-                        reply_markup=reply_markup))
+                        description=f'{descp}'))
             else:
                 reply_markup=get_reply_markup(string,file.file_id,nyva)
                 results.append(InlineQueryResultPhoto(
