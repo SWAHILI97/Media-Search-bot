@@ -83,9 +83,9 @@ async def start(bot, cmd):
                                     InlineKeyboardButton("🔗 GOOGLE LINK",url= link)
                                 ]
                             ]
-                        await bot.send_cached_media(
+                        await bot.send_photo(
                             chat_id=cmd.from_user.id,
-                            file_id=files.mime_type,
+                            photo=files.mime_type,
                             caption=f_caption,
                             reply_markup=InlineKeyboardMarkup(buttns)
                         )
@@ -102,9 +102,9 @@ async def start(bot, cmd):
                             if dataa not in output:
                                 output.append(dataa)
                         buttons=list(split_list(output,2))
-                        await bot.send_cached_media(
+                        await bot.send_photo(
                             chat_id=cmd.from_user.id,
-                            file_id=files.mime_type,
+                            photo=files.mime_type,
                             caption=f_caption,
                             reply_markup=InlineKeyboardMarkup(buttons)
                         )
