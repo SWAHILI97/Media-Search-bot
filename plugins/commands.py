@@ -225,10 +225,13 @@ async def delete(bot, message):
         return
     if reply.photo:
         name= bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
+        name=name.text
     else:
         name=media.file_name
     files = await get_filter_results(query=name)
     if files and reply.photo:
+        mime= bot.ask(text = " send url of the photo", chat_id = message.from_user.id)
+        mime=mime.text
         for file in files:
             if mime==file.mime_type:
                 status =  bot.ask(text = "send all to delete all files or send the video you want to delete on this movie/series ", chat_id = message.from_user.id)
@@ -315,6 +318,7 @@ async def add_data(bot, message):
     if reply and reply.photo:
         msg = await reply.reply("Processing...⏳", quote=True)
         name= await bot.ask(text = " send file name of the photo", chat_id = message.from_user.id)
+        name=name.text
         files = await get_filter_results(query=name)
         if files:
             mime = await bot.ask(text = " send photo link/URL for verifying", chat_id = message.from_user.id)
