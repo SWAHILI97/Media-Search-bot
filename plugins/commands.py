@@ -244,6 +244,7 @@ async def delete(bot, message):
                     result = await Media.collection.delete_one({
                         'mime_type': file.mime_type
                         })
+                    break
                 elif not (status.photo | status.text):
                     for file_type in ("document", "video", "audio","photo"):
                         medi = getattr(status, file_type, None)
@@ -253,13 +254,15 @@ async def delete(bot, message):
                         'file_size': medi.file_size,
                         'mime_type': medi.mime_type
                         })
+                    
     elif files:
         for file in files: 
             if file.file_size==media.file_size and file.mime_type == media.mime_type:
                 result = await Media.collection.delete_one({
                     'file_size': media.file_size,
                     'mime_type': media.mime_type
-                    })   
+                    }) 
+                break  
     if result.deleted_count:
         await msg.edit('File is successfully deleted from database')
     else:
