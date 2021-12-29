@@ -223,7 +223,7 @@ async def delete(bot, message):
     else:
         await msg.edit('This is not supported file format')
         return
-    if reply photo:
+    if reply.photo:
         name= bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
     else:
         name=media.file_name
