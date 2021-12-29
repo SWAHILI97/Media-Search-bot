@@ -244,7 +244,7 @@ async def delete(bot, message):
                     result = await Media.collection.delete_one({
                         'mime_type': file.mime_type
                         })
-                    break
+                    
                 elif not (status.photo | status.text):
                     for file_type in ("document", "video", "audio","photo"):
                         medi = getattr(status, file_type, None)
