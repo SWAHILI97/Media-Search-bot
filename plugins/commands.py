@@ -115,6 +115,8 @@ async def start(bot, cmd):
                             buttons.append(
                                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
                             )
+                            if BUTTON:
+                                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
                             await bot.send_photo(
                                 chat_id=cmd.from_user.id,
                                 photo=files.mime_type,
@@ -122,8 +124,6 @@ async def start(bot, cmd):
                                 reply_markup=InlineKeyboardMarkup(buttons)
                             )
                             return
-                        if BUTTON:
-                            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
                         data = BUTTONS[keyword]
                         buttons = data['buttons'][0].copy()
                         buttons.append(
