@@ -65,20 +65,7 @@ async def start(bot, cmd):
                             if dataa not in output:
                                 output.append(dataa)
                         buttons=list(split_list(output,2))
-                        if len(buttons) > 5: 
-                            btns = list(split_list(buttons, 5)) 
-                            keyword = f"{message.chat.id}-{message.message_id}"
-                            BUTTONS[keyword] = {
-                                "total" : len(btns),
-                                "buttons" : btns
-                            }
-                        else:
-                            buttons = buttons
-                            buttons.append(
-                                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
-                            )
-                            if BUTTON:
-                                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
+                       
                             await bot.send_photo(
                                 chat_id=cmd.from_user.id,
                                 photo=files.mime_type,
@@ -86,23 +73,7 @@ async def start(bot, cmd):
                                 reply_markup=InlineKeyboardMarkup(buttons)
                             )
                             return
-                        data = BUTTONS[keyword]
-                        buttons = data['buttons'][0].copy()
-                        buttons.append(
-                            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
-                        )    
-                        buttons.append(
-                            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-                        )
-                        
-                        if BUTTON:
-                            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-                        await bot.send_photo(
-                            chat_id=cmd.from_user.id,
-                            photo=files.mime_type,
-                            caption=f_caption,
-                            reply_markup=InlineKeyboardMarkup(buttons)
-                        )
+                     
                 else:
                     await bot.send_message(
                         chat_id=cmd.from_user.id,
@@ -474,95 +445,4 @@ async def cb_handler(client: Client, query: CallbackQuery):
         elif query.data == "tanzania":
             mkv = await client.ask(text="** VIFURUSHI VYA SWAHILI GROUP** \n wiki 1(07 days) ➡️ 2000/= \n wiki 2(14 days) ➡️ 3000/= \n wiki 3(21 days) ➡️ 4000/= \n mwezi (30 days) ➡️ 5000/= \n\n Lipa kwenda **0624667219** halopesa:Ukishafanya malipo tuma screenshot ya muamala hapa kwenye hii bot .\n\n Ukimaliza subir kidogo ntakutaarifu endapo msimamiz wangu atamaliza kuhakiki muamala wako..\nPia kila muamala utakao lipia ofa zipo unaeza kuongezewa siku(1,2,3---)\n **__KARIBUN SANA SWAHILI GROUP__**", chat_id = query.from_user.id)
         
-        elif query.data.startswith("next"):
-            ident, index, keyword = query.data.split("_")
-            try:
-                data = BUTTONS[keyword]
-            except KeyError:
-                await query.answer("You are using this for one of my old message, please send the request again.",show_alert=True)
-                return
-
-            if int(index) == int(data["total"]) - 2:
-                buttons = data['buttons'][int(index)+1].copy()
-
-                buttons.append(
-                    [InlineKeyboardButton("⏪ BACK", callback_data=f"back_{int(index)+1}_{keyword}")]
-                )
-                buttons.append(
-                    [InlineKeyboardButton(f"📃 Pages {int(index)+2}/{data['total']}", callback_data="pages")]
-                )
-                if BUTTON:
-                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-
-                await query.edit_message_reply_markup( 
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
-                return
-            else:
-                buttons = data['buttons'][int(index)+1].copy()
-
-                buttons.append(
-                    [InlineKeyboardButton("⏪ BACK", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
-                )
-                buttons.append(
-                    [InlineKeyboardButton(f"📃 Pages {int(index)+2}/{data['total']}", callback_data="pages")]
-                )
-                if BUTTON:
-                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-
-                await query.edit_message_reply_markup( 
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
-                return
-        elif query.data == "pages":
-            await query.answer()
-        elif query.data == "close":
-            try:
-                await query.message.reply_to_message.delete()
-                await query.message.delete()
-            except:
-                await query.message.delete()
-                
-
-        elif query.data.startswith("back"):
-            ident, index, keyword = query.data.split("_")
-            try:
-                data = BUTTONS[keyword]
-            except KeyError:
-                await query.answer("You are using this for one of my old message, please send the request again.",show_alert=True)
-                return
-
-            if int(index) == 1:
-                buttons = data['buttons'][int(index)-1].copy()
-
-                buttons.append(
-                    [InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
-                )
-                buttons.append(
-                    [InlineKeyboardButton(f"📃 Pages {int(index)}/{data['total']}", callback_data="pages")]
-                )
-                if BUTTON:
-                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-
-                await query.edit_message_reply_markup( 
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
-                return   
-            else:
-                buttons = data['buttons'][int(index)-1].copy()
-
-                buttons.append(
-                    [InlineKeyboardButton("⏪ BACK", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
-                )
-                buttons.append(
-                    [InlineKeyboardButton(f"📃 Pages {int(index)}/{data['total']}", callback_data="pages")]
-                )
-                if BUTTON:
-                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-
-                await query.edit_message_reply_markup( 
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
-                return
-
         
