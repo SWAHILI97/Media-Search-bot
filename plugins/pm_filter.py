@@ -8,6 +8,105 @@ from pyrogram.errors import UserNotParticipant
 from utils import get_filter_results, get_file_details, is_subscribed, get_poster
 BUTTONS = {}
 BOT = {}
+
+@Client.on_message(filters.command("start"))
+async def start(bot, cmd):
+    usr_cmdall1 = cmd.text
+    if usr_cmdall1.startswith("/start subinps"):
+        try:
+            ident, file_id = cmd.text.split("_-_-_-_")
+            filedetails = await get_file_details(file_id)
+            for files in filedetails:
+                title = files.file_name
+                size=get_size(files.file_size)
+                f_caption=files.caption
+                if CUSTOM_FILE_CAPTION:
+                    try:
+                        f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                    except Exception as e:
+                        print(e)
+                        f_caption=f_caption
+                if f_caption is None:
+                    f_caption = f"{files.file_name}"
+            strg=files.file_name.split('.dd#.')[3]
+            strgs = strg.split('.')[1]
+            strg2 = strg.split('.')[0]
+            link = files.file_name.split('.dd#.')[4]
+            if filedetails:
+                ban_status = await db.get_ban_status(cmd.from_user.id)
+                if strgs.lower() == 'f' or ban_status["is_banned"]:
+                    if strg2.lower() == 'm':
+                        f_caption=f'🎬title \n🌟@Bandolako2bot \n\n ***bonyeza download kuzidownload hapa telegram au google kudownload kupitia google drive***\n *usisahau mda wowote kuweka email kwa kutuma neno wekaemail kisha email yako mfano wekaemail hramamohamed@gmail.com*'
+                        buttns = [
+                                [
+                                    InlineKeyboardButton("📤 DOWNLOAD",callback_data=f"subinps.dd#.{files.file_id}")
+                          
+                                ],
+                                [
+                                    InlineKeyboardButton("🔗 GOOGLE LINK",url= link)
+                                ]
+                            ]
+                        await bot.send_photo(
+                            chat_id=cmd.from_user.id,
+                            photo=files.mime_type,
+                            caption=f_caption,
+                            reply_markup=InlineKeyboardMarkup(buttns)
+                        )
+                    elif strg2.lower() == 's':
+                        filef=await get_filter_results(file_id)
+                        f_caption =f'🎬title \n🌟@Bandolako2bot \n\n ***Bonyeza google link kudownload kupitia google drive na bonyeza season episode range(s01()1-n) kudownload episode husika hapa telegram tunaanza na latest episodes kurud mpaka ya mwanzo*** \n\n *kama hujaunga email tuma neno wekaemail kisha email yako mfano wekaemail hramamohamed@gmail.com*'
+                        output = []
+                        output.append(InlineKeyboardButton("🔗 GOOGLE LINK",url= link))
+                        for x in filef:
+                            i= x.file_name.split('.dd#.')[2]
+                            a,b= i.split('.d#.')
+                            l1,l2= a.split('@.')
+                            dataa=InlineKeyboardButton(f"{b}",callback_data=f"subinps.dd#.{l1} {l2}" )
+                            if dataa not in output:
+                                output.append(dataa)
+                        buttons=list(split_list(output,2))
+                       
+                            await bot.send_photo(
+                                chat_id=cmd.from_user.id,
+                                photo=files.mime_type,
+                                caption=f_caption,
+                                reply_markup=InlineKeyboardMarkup(buttons)
+                            )
+                            return
+                     
+                else:
+                    await bot.send_message(
+                        chat_id=cmd.from_user.id,
+                        text=f"Samahani **{cmd.from_user.first_name}** nmeshindwa kukuruhusu kendelea kwa sababu muv au sizon uliochagua ni za kulipia\n Tafadhal chagua nchi uliopo kuweza kulipia kifurushi",
+                        reply_markup=InlineKeyboardMarkup(
+                            [
+                                [
+                                    InlineKeyboardButton("🇹🇿 TANZANIA", callback_data = "tanzania"),
+                                    InlineKeyboardButton("🇰🇪 KENYA",callback_data ="kenya" )
+                                ]
+                            ]
+                        )
+                    )
+        except Exception as err:
+            await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
+   
+    else:
+        await cmd.reply_text(
+            START_MSG,
+            parse_mode="Markdown",
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
+                        InlineKeyboardButton("Other Bots", url="https://t.me/subin_works/122")
+                    ],
+                    [
+                        InlineKeyboardButton("About", callback_data="about")
+                    ]
+                ]
+                )
+            )
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(client, message):
     await handle_user_status(client,message)
