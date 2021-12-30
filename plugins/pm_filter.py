@@ -65,7 +65,20 @@ async def start(bot, cmd):
                             if dataa not in output:
                                 output.append(dataa)
                         buttons=list(split_list(output,2))
-                       
+                        if len(buttons) > 10: 
+                            btns = list(split_list(buttons, 10)) 
+                            keyword = f"{message.chat.id}-{message.message_id}"
+                            BUTTONS[keyword] = {
+                               "total" : len(btns),
+                               "buttons" : btns
+                            }
+                        else:
+                            buttons = buttons
+                            buttons.append(
+                                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+                            )
+                            if BUTTON:
+                                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
                             await bot.send_photo(
                                 chat_id=cmd.from_user.id,
                                 photo=files.mime_type,
@@ -73,6 +86,26 @@ async def start(bot, cmd):
                                 reply_markup=InlineKeyboardMarkup(buttons)
                             )
                             return
+
+                        data = BUTTONS[keyword]
+                        buttons = data['buttons'][0].copy()
+
+                        buttons.append(
+                            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
+                        )    
+                        buttons.append(
+                            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+                        )
+                        if BUTTON:
+                            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
+     
+                        await bot.send_photo(
+                            chat_id=cmd.from_user.id,
+                            photo=files.mime_type,
+                            caption=f_caption,
+                            reply_markup=InlineKeyboardMarkup(buttons)
+                        )
+                        return
                      
                 else:
                     await bot.send_message(
@@ -164,45 +197,7 @@ async def filter(client, message):
             await client.send_sticker(chat_id=message.from_user.id, sticker='CAADBQADMwIAAtbcmFelnLaGAZhgBwI')
             return
 
-        if not btn:
-            return
-
-        if len(btn) > 10: 
-            btns = list(split_list(btn, 10)) 
-            keyword = f"{message.chat.id}-{message.message_id}"
-            BUTTONS[keyword] = {
-                "total" : len(btns),
-                "buttons" : btns
-            }
-        else:
-            buttons = btn
-            buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
-            )
-            if BUTTON:
-                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-            poster=None
-            if API_KEY:
-                poster=await get_poster(search)
-            if poster:
-                await message.reply_photo(photo=poster, caption=f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-
-            else:
-                await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-            return
-
-        data = BUTTONS[keyword]
-        buttons = data['buttons'][0].copy()
-
-        buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
-        )    
-        buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-        )
-        if BUTTON:
-            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-        poster=None
+          poster=None
         if API_KEY:
             poster=await get_poster(search)
         if poster:
