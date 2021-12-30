@@ -73,7 +73,7 @@ async def save_file(media):
     """Save file in database"""
 
     # TODO: Find better way to get same file_id for same media to avoid duplicates
-    file_ref="bandolako2bot"
+    file_ref= media.file_ref
     file_id = media.file_id
     if media.file_type != "photo":
         file_id, file_ref = unpack_new_file_id(media.file_id)
@@ -269,7 +269,7 @@ def unpack_new_file_id(new_file_id):
 
 async def upload_photo(client, message):
   msg = await message.reply_text("`Tʀʏɪɴɢ Tᴏ Dᴏᴡɴʟᴏᴀᴅ`")
-  id2 = message.photo.file_id
+  id3 = message.photo.file_id
   userid = f'{id2}{message.photo.file_size}'
   img_path = (f"./DOWNLOADS/{userid}.jpg")
   img_path = await client.download_media(message=message, file_name=img_path)
@@ -283,7 +283,7 @@ async def upload_photo(client, message):
     os.remove(img_path)
   link2= f"https://telegra.ph{tlink[0]}"
   id2=(tlink[0].split("/")[-1]).split(".")[0]
-  return f'{id2}{message.photo.file_size}',link2
+  return f'{id2}{message.photo.file_size}',id3,link2
 
 def get_size(size):
     """Get size in readable format"""
