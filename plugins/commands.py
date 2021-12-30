@@ -124,7 +124,7 @@ async def add_poster(bot, message):
             media.caption = f'{reply.caption.html}\n🌟@Bandolako2bot \n💿[IMAGE URL]({media.file_ref)'if reply.caption else None
             break
         elif media is not None :
-            testi=k=await bot.ask(text = " send filename of the document", chat_id = message.from_user.id)
+            testi=await bot.ask(text = " send filename of the document", chat_id = message.from_user.id)
             media.file_name = testi.text
             resv = ".dd#.x"
             mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
@@ -305,46 +305,4 @@ async def addconnection(client,message):
         logger.exception(e)
         await message.reply_text('Kuna tatizo tafadhali jaribu badae!!!.', quote=True)
         return
-def split_list(l, n):
-    for i in range(0, len(l), n):
-        yield l[i:i + n]
-
-@Client.on_callback_query()
-async def cb_handler(client: Client, query: CallbackQuery):
-    clicked = query.from_user.id
-    try:
-        typed = query.message.reply_to_message.from_user.id
-    except:
-        typed = query.from_user.id
-        pass
-    if (clicked == typed):
-        if query.data.startswith("subinps"):
-            ident, file_id = query.data.split(".dd#.")
-            filez=await get_filter_results(file_id)
-            for file in reversed(filez):
-                filedetails = await get_file_details(file.file_id)
-                for files in filedetails:
-                    title = files.file_name
-                    size=get_size(files.file_size)
-                    f_caption=files.caption
-                    if CUSTOM_FILE_CAPTION:
-                        try:
-                            f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
-                        except Exception as e:
-                            print(e)
-                            f_caption=f_caption
-                    if f_caption is None:
-                        f_caption = f"{files.file_name}"
-                    await query.answer()
-                    await client.send_cached_media(
-                        chat_id=query.from_user.id,
-                        file_id=file.file_id,
-                        caption=f_caption
-                    )
-        elif query.data == "kenya":
-            mkv = await client.ask(text = " Samahani sana wateja wetu wa Kenya bado hatuja weka utaratibu mzuri.\n  hivi karibun tutaweka mfumo mzuri ili muweze kupata huduma zetu", chat_id = query.from_user.id)
-        
-        elif query.data == "tanzania":
-            mkv = await client.ask(text="** VIFURUSHI VYA SWAHILI GROUP** \n wiki 1(07 days) ➡️ 2000/= \n wiki 2(14 days) ➡️ 3000/= \n wiki 3(21 days) ➡️ 4000/= \n mwezi (30 days) ➡️ 5000/= \n\n Lipa kwenda **0624667219** halopesa:Ukishafanya malipo tuma screenshot ya muamala hapa kwenye hii bot .\n\n Ukimaliza subir kidogo ntakutaarifu endapo msimamiz wangu atamaliza kuhakiki muamala wako..\nPia kila muamala utakao lipia ofa zipo unaeza kuongezewa siku(1,2,3---)\n **__KARIBUN SANA SWAHILI GROUP__**", chat_id = query.from_user.id)
-        
         
