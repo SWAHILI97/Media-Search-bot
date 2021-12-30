@@ -57,7 +57,7 @@ async def delete(bot, message):
         mime=await bot.ask(text = " send url of the photo", chat_id = message.from_user.id)
         mime=mime.text
         for file in files:
-            if mime==file.mime_type:
+            if mime==file.file_ref:
                 status =await  bot.ask(text = "send all to delete all files or send the video you want to delete on this movie/series ", chat_id = message.from_user.id)
                 filez = await get_filter_results(query=file.file_id)
                 if status.text == "all":
