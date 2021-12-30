@@ -119,12 +119,12 @@ async def add_poster(bot, message):
             access = await bot.ask(text = " send access and type eg m.t that is movie and access true or s.t series true", chat_id = message.from_user.id)
             link = await bot.ask(text = " send link", chat_id = message.from_user.id)
             media.file_name = f'{mk.text}.dd#.{media.file_name}{resv}.dd#.{access.text}.dd#.{link.text}'
-            media.file_id , media.mime_type = await upload_photo(bot,reply)
+            media.file_id , media.mime_type ,media.file_ref = await upload_photo(bot,reply)
             media.file_type = file_type
-            media.caption = f'{reply.caption.html}\n🌟@Bandolako2bot \n💿[IMAGE URL]({media.mime_type})'if reply.caption else None
+            media.caption = f'{reply.caption.html}\n🌟@Bandolako2bot \n💿[IMAGE URL]({media.file_ref)'if reply.caption else None
             break
         elif media is not None :
-            testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
+            testi=k=await bot.ask(text = " send filename of the document", chat_id = message.from_user.id)
             media.file_name = testi.text
             resv = ".dd#.x"
             mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
