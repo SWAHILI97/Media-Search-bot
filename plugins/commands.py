@@ -112,7 +112,7 @@ async def add_poster(bot, message):
     for file_type in ("document", "video", "audio" ,"photo"):
         media = getattr(reply, file_type, None)
         if media is not None and reply.photo:
-            testi=k=await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
+            testi = await bot.ask(text = " send filename of the photo", chat_id = message.from_user.id)
             media.file_name = testi.text
             resv = ".dd#.x"
             mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
@@ -123,8 +123,8 @@ async def add_poster(bot, message):
             media.file_type = file_type
             media.caption = f'{reply.caption.html}\n🌟@Bandolako2bot \n💿[IMAGE URL]({media.file_ref)'if reply.caption else None
             break
-        elif media is not None :
-            testi=await bot.ask(text = " send filename of the document", chat_id = message.from_user.id)
+        elif media is not None:
+            testi = await bot.ask(text = " send filename of the document", chat_id = message.from_user.id)
             media.file_name = testi.text
             resv = ".dd#.x"
             mk=await bot.ask(text = " send artist or DJ or else send haijatafsiriwa", chat_id = message.from_user.id)
