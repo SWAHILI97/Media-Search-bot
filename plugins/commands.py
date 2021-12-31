@@ -1,13 +1,10 @@
 import os
-import logging
 from plugins.channel import db
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
 from utils import Media, get_file_details, get_size, save_file, get_filter_results,upload_photo
 from pyrogram.errors import UserNotParticipant
-logger = logging.getLogger(__name__)
-BUTTONS={}
 
 @Client.on_message(filters.command('total') & filters.user(ADMINS))
 async def total(bot, message):
@@ -17,7 +14,7 @@ async def total(bot, message):
         total = await Media.count_documents()
         await msg.edit(f'📁 Saved files: {total}')
     except Exception as e:
-        logger.exception('Failed to check total files')
+        
         await msg.edit(f'Error: {e}')
 
 
@@ -302,7 +299,7 @@ async def addconnection(client,message):
         else:
             await message.reply_text("Ni add admin kwenye group lako kisha jaribu tena", quote=True)
     except Exception as e:
-        logger.exception(e)
+       
         await message.reply_text('Kuna tatizo tafadhali jaribu badae!!!.', quote=True)
         return
         
